@@ -19,6 +19,12 @@ Site: https://bbeehler.github.io/eblast-calendar/
 
 The open page checks for new data every 5 minutes and reloads itself when something changed.
 
+### Refresh from Wrike button
+
+The button on the page calls a Supabase Edge Function, `eblast-refresh` in the **AIA Canada Data Portal** project (source in `supabase/functions/eblast-refresh`). The function starts the workflow above and reports its progress. It only accepts calls from `bbeehler.github.io` and won't start a new run while one is running or within 2 minutes of the last one.
+
+It needs one Supabase secret, `GH_DISPATCH_TOKEN`: a fine-grained GitHub token limited to this repository with **Actions: Read and write**. Set it under Supabase → Edge Functions → Secrets.
+
 Settings needed: **Settings → Pages → Source: GitHub Actions**, and the `WRIKE_TOKEN` secret under **Settings → Secrets and variables → Actions**.
 
 ## How sends are tagged
