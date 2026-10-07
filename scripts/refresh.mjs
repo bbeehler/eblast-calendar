@@ -113,7 +113,7 @@ function guessKind(text) {
   if (/kbyg|know before|survey/.test(t)) return "log";
   if (/tariff|advisory|urgent|recall/.test(t)) return "adv";
   if (/sponsor|supporter|vendor|exhibitor|prospectus|claim tickets|partner/.test(t)) return "spons";
-  if (/\breg\b|registration|register|launch|rmd|reminder|last call|last chance|left to|tickets|application|closes|early bird/.test(t)) return "reg";
+  if (/\breg\b|registration|register|rmd|reminder|last call|last chance|left to|tickets|application|closes|early bird|invitation|invite|briefing/.test(t)) return "reg";
   return "content";
 }
 function guessBroad(text, program, kind) {
@@ -166,7 +166,7 @@ async function main() {
   // Wrike's title filter matches whole words, so "blast" finds "e-blast" but not "Eblast" or "eBlast". Ask for each spelling.
   const diag = { queries: {}, skipped: { notSend: [], noDate: [], beforeWindow: 0 }, sampleTasks: [] };
   const byId = new Map();
-  for (const title of ["blast", "eblast", "eblasts", "Eblast", "eBlast"]) {
+  for (const title of ["blast", "eblast"]) {
     const found = await paged(`/spaces/${SPACE_ID}/tasks`, {
       descendants: "true", subTasks: "true", title,
       fields: ["responsibleIds", "parentIds", "customFields"],
@@ -203,13 +203,20 @@ async function main() {
     const due = t.dates?.due || t.dates?.start;
     if (!due) { diag.skipped.noDate.push(t.title); continue; }
     const d = due.slice(0, 10);
-    const parents = (t.parentIds || []).map(id => folderById[id]).filter(Boolean);
+    const parents = (t.parentIds || []).map(id => folderById[id]).filter(p => p && !/assigned tasks|my work|^inbox$|personal/i.test(p.title));
     const blastParent = parents.find(p => BLAST.test(p.title) && !CONTAINER.test(p.title));
     const parent = blastParent || parents.find(p => p.project) || parents[0];
     if (blastParent) usedProjects.add(blastParent.id);
-    const generic = isGeneric(t.title) && parent;
+    const generic = isGeneric(t.title);
+    if (generic && !parent) continue;
     const title = generic ? parent.title : t.title;
-    raw.push({ d, title, context: generic ? `${t.title} ${parent.title}` : t.title, programContext: `${t.title} ${parent?.title || ""}`, status: statusCode(t.status), permalink: t.permalink, owner: (t.responsibleIds || []).map(id => nameOf[id]).filter(Boolean).join(", "), task: t });
+    raw.push({ d, title, context: generic ? `${t.title} ${parent.title}` : t.title, programContext: `${t.title} ${parent?.title || ""}`, status: statusCode(t.status), permalink: t.permalink, owner: (t.responsibleIds || []).map(id => nameOf[id]).filter(Boolean).join(", "), task: t, generic, parentIds: parents.map(p => p.id) });
+  }
+  // A generic "Send eBlast" task in a project that already has a named send task is the same send
+  for (let i = raw.length - 1; i >= 0; i--) {
+    const r = raw[i];
+    if (!r.generic) continue;
+    if (raw.some(o => o !== r && !o.generic && (o.parentIds || []).some(id => r.parentIds.includes(id)))) raw.splice(i, 1);
   }
   for (const f of blastProjects) {
     if (usedProjects.has(f.id)) continue;
@@ -252,12 +259,13 @@ async function main() {
     const cf = s._cf;
     if (!(s.k === "reg" || s.k === "spons")) { delete s._stepHint; delete s._cf; continue; }
     const base = `${s.p}-${s.k}`;
-    if (s.se && !s.auto) { // hand-tagged: let later auto-tagged sends continue its numbering
+    if (s.se && !s.auto && s.p !== "mem") { // hand-tagged: let later auto-tagged sends continue its numbering
       lastInSeries[base] = { d: s.d, n: s.st || 1, key: s.se };
       if (cf.st) { s.st = cf.st; } if (cf.last) { s.st = Math.max(s.st || 3, 3); }
       delete s._stepHint; delete s._cf; continue;
     }
     if (cf.single) { s.se = null; s.st = null; }
+    else if (!s.se && s.p === "mem") { s.se = null; s.st = null; } // member & corporate asks aren't grouped automatically
     else if (!s.se) {
       const prev = lastInSeries[base];
       const gap = prev ? (new Date(s.d) - new Date(prev.d)) / 864e5 : Infinity;
