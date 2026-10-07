@@ -163,14 +163,16 @@ async function main() {
   console.log("Custom fields:", JSON.stringify(fieldIds));
 
   // Tasks with "blast" in the title anywhere in the space
-  // Wrike's title filter is case-sensitive, so ask for both "blast" (Eblast, e-blast) and "Blast" (eBlast, e-Blast)
+  // Wrike's title filter matches whole words, so "blast" finds "e-blast" but not "Eblast" or "eBlast". Ask for each spelling.
+  const diag = { queries: {}, skipped: { notSend: [], noDate: [], beforeWindow: 0 }, sampleTasks: [] };
   const byId = new Map();
-  for (const title of ["blast", "Blast", "BLAST"]) {
+  for (const title of ["blast", "eblast", "eblasts", "Eblast", "eBlast"]) {
     const found = await paged(`/spaces/${SPACE_ID}/tasks`, {
       descendants: "true", subTasks: "true", title,
       fields: ["responsibleIds", "parentIds", "customFields"],
     });
     console.log(`Tasks matching "${title}": ${found.length}`);
+    diag.queries[title] = found.length;
     for (const t of found) byId.set(t.id, t);
   }
   const tasks = [...byId.values()];
@@ -196,9 +198,10 @@ async function main() {
   const usedProjects = new Set();
 
   for (const t of tasks) {
-    if (!isSendTask(t.title)) continue;
+    if (diag.sampleTasks.length < 40) diag.sampleTasks.push({ title: t.title, due: t.dates?.due || t.dates?.start || null, status: t.status, parents: (t.parentIds || []).length });
+    if (!isSendTask(t.title)) { diag.skipped.notSend.push(t.title); continue; }
     const due = t.dates?.due || t.dates?.start;
-    if (!due) continue;
+    if (!due) { diag.skipped.noDate.push(t.title); continue; }
     const d = due.slice(0, 10);
     const parents = (t.parentIds || []).map(id => folderById[id]).filter(Boolean);
     const blastParent = parents.find(p => BLAST.test(p.title) && !CONTAINER.test(p.title));
@@ -280,6 +283,10 @@ async function main() {
   const out = { generated: changed ? new Date().toISOString() : prev.generated, hash, source: "wrike", space: SPACE_ID, sends };
   console.log(`${sends.length} sends from ${FROM} on · ${sends.filter(s => s.auto).length} auto-tagged · ${changed ? "changed" : "no change"}`);
   if (!DRY) await writeFile(OUT, JSON.stringify(out, null, 1) + "\n");
+  diag.tasksTotal = tasks.length; diag.folders = tree.length; diag.blastProjects = blastProjects.length;
+  diag.sends = sends.length; diag.fromProjects = raw.filter(r => !r.task.id).length;
+  diag.skipped.notSend = diag.skipped.notSend.slice(0, 60);
+  if (!DRY && !process.env.MOCK) await writeFile("data/last-run.json", JSON.stringify({ ran: new Date().toISOString(), ...diag }, null, 1) + "\n");
 }
 
 main().catch(e => { console.error(e.message); process.exit(1); });
