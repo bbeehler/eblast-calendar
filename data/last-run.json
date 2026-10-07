@@ -1,0 +1,314 @@
+{
+ "ran": "2026-10-07T19:13:36.484Z",
+ "queries": {
+  "blast": 31,
+  "eblast": 329,
+  "eblasts": 329,
+  "Eblast": 329,
+  "eBlast": 329
+ },
+ "skipped": {
+  "notSend": [
+   "Events - One-off content (blog, press release, e-blast, etc.) - CCIF Calgary",
+   "Events - One-off content (blog, press release, e-blast, etc.) - CCIF Montreal 2026",
+   "Submit a Content Operations request for an e-blast invitation plan",
+   "Submit a Content Operations request for an e-blast invitation plan",
+   "Committees or Division - One-off content (blog, press release, e-blast, etc.) - Grand Rendez-Vous",
+   "Committees or Division - One-off content (blog, press release, e-blast, etc.) - GRV QC",
+   "Provide the attendee list [consent given] to Marcom for the KBYG inclusion and linktree webpage(s) for e-blast #1",
+   "Provide the attendee list [consent given] to Marcom for the KBYG inclusion and linktree webpage(s) for e-blast #2",
+   "Committees or Division - One-off content (blog, press release, e-blast, etc.) - GRV du Québec",
+   "Submit Content Operations Request for e-blast invitation to ML sponsors",
+   "Provide the attendee list [consent given] to Marcom for the KBYG inclusion and linktree webpage(s) for e-blast #1",
+   "Provide the attendee list [consent given] to Marcom for the KBYG inclusion and linktree webpage(s) for e-blast #2",
+   "Add attendee list to linktree page for e-blast #2",
+   "Update attendee list webpage for e-blast #1",
+   "Add attendee list to linktree page for e-blast #2",
+   "Update attendee list webpage for e-blast #1",
+   "Add attendee list to linktree page for e-blast #1",
+   "Update attendee list webpage for e-blast #2",
+   "Update attendee list webpage for e-blast #2",
+   "Committees or Division - One-off content (blog, press release, e-blast, etc.) - June 17 R2R-OPC QC Webinaire",
+   "Events - One-off content (blog, press release, e-blast, etc.) - CCIF Montreal 2026",
+   "Events - One-off content (blog, press release, e-blast, etc.)",
+   "Add attendee list to linktree page for e-blast #1",
+   "Events - One-off content (blog, press release, e-blast, etc.) - Student Automotive Innovation Challenge",
+   "4. Send e-blast copy to Emily Mckay",
+   "Submit Content Operations Request for e-blast KBYG to confirmed attendees",
+   "Create YLA-DSA-BOD press release project and all email marketing eblast projects in Wrike by you",
+   "Write eBlast copy EN",
+   "eBlast - Write EN and FR copy",
+   "Review and Approve eBlast",
+   "Review and Approve eBlast Design",
+   "eBlast: create copy to Maple Leaf and Gold sponsors",
+   "Review and Approve eBlast",
+   "Layout and design eBlast to Maple Leaf and Gold sponsors",
+   "Review and Approve eBlast Design",
+   "eBlast: create copy to all members",
+   "eBlast - Layout and design CEO Update",
+   "Design and layout eBlast",
+   "3 - Design and layout eBlast",
+   "Design and layout eBlast",
+   "Design and layout eBlast to all members",
+   "Layout and design eBlast to All Members",
+   "Design and layout eBlast",
+   "Write eBlast content in EN",
+   "Design and Layout eBlast",
+   "Proof read eBlast copy",
+   "Design and layout eBlast",
+   "3.6 eBlast #3 Final Reminder",
+   "3.1 eBlast #1 Registration Open"
+  ],
+  "noDate": [
+   "E-blast: 2026 CCIF Montreal - hotel accomodations (registered attendees)"
+  ],
+  "beforeWindow": 0
+ },
+ "sampleTasks": [
+  {
+   "title": "Events - One-off content (blog, press release, e-blast, etc.) - CCIF Calgary",
+   "due": "2025-09-18T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Events - One-off content (blog, press release, e-blast, etc.) - CCIF Montreal 2026",
+   "due": "2025-11-14T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Submit a Content Operations request for an e-blast invitation plan",
+   "due": "2025-11-24T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Submit a Content Operations request for an e-blast invitation plan",
+   "due": "2026-12-07T17:00:00",
+   "status": "Active",
+   "parents": 1
+  },
+  {
+   "title": "Committees or Division - One-off content (blog, press release, e-blast, etc.) - Grand Rendez-Vous",
+   "due": "2026-03-26T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Committees or Division - One-off content (blog, press release, e-blast, etc.) - GRV QC",
+   "due": null,
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Provide the attendee list [consent given] to Marcom for the KBYG inclusion and linktree webpage(s) for e-blast #1",
+   "due": "2025-09-10T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Provide the attendee list [consent given] to Marcom for the KBYG inclusion and linktree webpage(s) for e-blast #2",
+   "due": "2025-09-15T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Committees or Division - One-off content (blog, press release, e-blast, etc.) - GRV du Québec",
+   "due": null,
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Submit Content Operations Request for e-blast invitation to ML sponsors",
+   "due": "2026-08-27T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "E-blast: CBS Understanding Millennials and Gen Z (sponsors)",
+   "due": "2026-10-19T17:00:00",
+   "status": "Active",
+   "parents": 1
+  },
+  {
+   "title": "E-blast: CBS Understanding Millennials and Gen Z (general audience)",
+   "due": "2026-11-16T17:00:00",
+   "status": "Active",
+   "parents": 1
+  },
+  {
+   "title": "e-Blast: Canada Night sponsorship rmd #1",
+   "due": "2026-09-14T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Provide the attendee list [consent given] to Marcom for the KBYG inclusion and linktree webpage(s) for e-blast #1",
+   "due": "2026-09-08T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Provide the attendee list [consent given] to Marcom for the KBYG inclusion and linktree webpage(s) for e-blast #2",
+   "due": "2026-09-14T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Add attendee list to linktree page for e-blast #2",
+   "due": "2025-09-15T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Update attendee list webpage for e-blast #1",
+   "due": "2026-09-09T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Add attendee list to linktree page for e-blast #2",
+   "due": "2026-09-14T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Update attendee list webpage for e-blast #1",
+   "due": "2025-09-10T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Add attendee list to linktree page for e-blast #1",
+   "due": "2025-09-10T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Update attendee list webpage for e-blast #2",
+   "due": "2025-09-15T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Update attendee list webpage for e-blast #2",
+   "due": "2026-09-14T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Committees or Division - One-off content (blog, press release, e-blast, etc.) - June 17 R2R-OPC QC Webinaire",
+   "due": "2026-06-26T17:00:00",
+   "status": "Completed",
+   "parents": 2
+  },
+  {
+   "title": "Events - One-off content (blog, press release, e-blast, etc.) - CCIF Montreal 2026",
+   "due": "2026-07-30T17:00:00",
+   "status": "Completed",
+   "parents": 2
+  },
+  {
+   "title": "Events - One-off content (blog, press release, e-blast, etc.)",
+   "due": "2026-07-17T17:00:00",
+   "status": "Completed",
+   "parents": 2
+  },
+  {
+   "title": "Add attendee list to linktree page for e-blast #1",
+   "due": "2026-09-09T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "E-blast: 2026 CCIF Montreal - hotel accomodations (registered attendees)",
+   "due": null,
+   "status": "Cancelled",
+   "parents": 3
+  },
+  {
+   "title": "Events - One-off content (blog, press release, e-blast, etc.) - Student Automotive Innovation Challenge",
+   "due": "2026-09-18T17:00:00",
+   "status": "Cancelled",
+   "parents": 2
+  },
+  {
+   "title": "4. Send e-blast copy to Emily Mckay",
+   "due": "2027-03-24T17:00:00",
+   "status": "Active",
+   "parents": 1
+  },
+  {
+   "title": "e-Blast: Canada Night sponsorship rmd #1",
+   "due": "2026-09-28T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Submit Content Operations Request for e-blast KBYG to confirmed attendees",
+   "due": "2026-10-06T17:00:00",
+   "status": "Active",
+   "parents": 1
+  },
+  {
+   "title": "Eblast: CAIC Launch Announce event, drive registration (Audience #3)",
+   "due": "2025-09-11T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Eblast: CAIC Launch Announce event, drive registration (Audience #2)",
+   "due": "2025-09-11T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Eblast: CAIC Registration rmd #1 Drive registration (Audience #3)",
+   "due": "2025-09-30T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Eblast: CAIC Claim tickets launch - CCIF Platinum 2026 sponsors",
+   "due": "2026-01-06T17:00:00",
+   "status": "Cancelled",
+   "parents": 1
+  },
+  {
+   "title": "Create YLA-DSA-BOD press release project and all email marketing eblast projects in Wrike by you",
+   "due": "2025-08-14T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Eblast: CAIC CCIF supporter rmd #5 Drive CCIF supporter registration (Past CCIF Supporters 2024 and 2025)",
+   "due": "2026-02-11T17:00:00",
+   "status": "Cancelled",
+   "parents": 1
+  },
+  {
+   "title": "Eblast: YPA Community Speed Mentoring Roundtable Launch (Audience 2: Young professional CAIC attendees)",
+   "due": "2026-01-21T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  },
+  {
+   "title": "Eblast: CAIC CCIF Supporter rmd #6 Drive CCIF supporter registration (Past CCIF Supporters 2024 and 2025)",
+   "due": "2026-02-25T17:00:00",
+   "status": "Cancelled",
+   "parents": 1
+  },
+  {
+   "title": "Eblast: YPA Community Speed Mentoring Roundtable RMD #1 (Audience 2: Young professional CAIC attendees)",
+   "due": "2026-02-12T17:00:00",
+   "status": "Completed",
+   "parents": 1
+  }
+ ],
+ "tasksTotal": 329,
+ "folders": 338,
+ "blastProjects": 262,
+ "sends": 75,
+ "fromProjects": 5
+}
