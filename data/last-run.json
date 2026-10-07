@@ -1,11 +1,8 @@
 {
- "ran": "2026-10-07T19:13:36.484Z",
+ "ran": "2026-10-07T19:17:08.467Z",
  "queries": {
   "blast": 31,
-  "eblast": 329,
-  "eblasts": 329,
-  "Eblast": 329,
-  "eBlast": 329
+  "eblast": 329
  },
  "skipped": {
   "notSend": [
@@ -309,6 +306,6 @@
  "tasksTotal": 329,
  "folders": 338,
  "blastProjects": 262,
- "sends": 75,
+ "sends": 70,
  "fromProjects": 5
 }

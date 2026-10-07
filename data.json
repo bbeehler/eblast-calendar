@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-07T19:13:36.483Z",
- "hash": "2dbbd1416c3a5b91",
+ "generated": "2026-10-07T19:17:08.465Z",
+ "hash": "018bd2bb970be9c8",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -405,7 +405,7 @@
    "url": "https://app-us2.wrike.com/open.htm?id=4465342645",
    "o": "",
    "b": true,
-   "k": "content",
+   "k": "reg",
    "se": null,
    "st": null,
    "auto": true
@@ -537,20 +537,6 @@
    "auto": false
   },
   {
-   "d": "2026-09-10",
-   "t": "Send eBlast on September 4",
-   "p": "mem",
-   "s": "C",
-   "id": "4546920386",
-   "url": "https://app-us2.wrike.com/open.htm?id=4546920386",
-   "o": "Emily Reed",
-   "b": true,
-   "k": "content",
-   "se": null,
-   "st": null,
-   "auto": true
-  },
-  {
    "d": "2026-09-14",
    "t": "Canada Night · sponsorship rmd #1",
    "p": "cn",
@@ -594,20 +580,6 @@
   },
   {
    "d": "2026-09-21",
-   "t": "Assigned Tasks & Projects",
-   "p": "mem",
-   "s": "C",
-   "id": "4547652024",
-   "url": "https://app-us2.wrike.com/open.htm?id=4547652024",
-   "o": "Sebastien Guindon",
-   "b": true,
-   "k": "content",
-   "se": null,
-   "st": null,
-   "auto": true
-  },
-  {
-   "d": "2026-09-21",
    "t": "SAIC sponsorship · all members",
    "p": "saic",
    "s": "C",
@@ -633,20 +605,6 @@
    "se": "cn-reg",
    "st": 6,
    "auto": false
-  },
-  {
-   "d": "2026-09-23",
-   "t": "Assigned Tasks & Projects",
-   "p": "mem",
-   "s": "C",
-   "id": "4527032925",
-   "url": "https://app-us2.wrike.com/open.htm?id=4527032925",
-   "o": "Sebastien Guindon",
-   "b": true,
-   "k": "content",
-   "se": null,
-   "st": null,
-   "auto": true
   },
   {
    "d": "2026-09-24",
@@ -714,23 +672,9 @@
    "o": "",
    "b": true,
    "k": "spons",
-   "se": "prospectus",
-   "st": 1,
-   "auto": false
-  },
-  {
-   "d": "2026-10-07",
-   "t": "Send eBlast",
-   "p": "mem",
-   "s": "A",
-   "id": "4577013869",
-   "url": "https://app-us2.wrike.com/open.htm?id=4577013869",
-   "o": "Emily Reed",
-   "b": true,
-   "k": "content",
    "se": null,
    "st": null,
-   "auto": true
+   "auto": false
   },
   {
    "d": "2026-10-08",
@@ -756,8 +700,8 @@
    "o": "",
    "b": true,
    "k": "spons",
-   "se": "prospectus",
-   "st": 2,
+   "se": null,
+   "st": null,
    "auto": true
   },
   {
@@ -769,7 +713,7 @@
    "url": "https://app-us2.wrike.com/open.htm?id=4465342529",
    "o": "",
    "b": true,
-   "k": "content",
+   "k": "reg",
    "se": null,
    "st": null,
    "auto": true
@@ -868,8 +812,8 @@
    "o": "",
    "b": true,
    "k": "reg",
-   "se": "mem-reg-2026-11",
-   "st": 1,
+   "se": null,
+   "st": null,
    "auto": true
   },
   {
@@ -885,20 +829,6 @@
    "se": "ccif-sc",
    "st": 4,
    "auto": false
-  },
-  {
-   "d": "2026-11-11",
-   "t": "Assigned Tasks & Projects",
-   "p": "mem",
-   "s": "A",
-   "id": "4527032965",
-   "url": "https://app-us2.wrike.com/open.htm?id=4527032965",
-   "o": "Sebastien Guindon",
-   "b": true,
-   "k": "content",
-   "se": null,
-   "st": null,
-   "auto": true
   },
   {
    "d": "2026-11-16",
@@ -1021,9 +951,9 @@
    "url": "https://app-us2.wrike.com/open.htm?id=4579883311",
    "o": "",
    "b": true,
-   "k": "reg",
-   "se": "mem-reg-2027-03",
-   "st": 1,
+   "k": "content",
+   "se": null,
+   "st": null,
    "auto": true
   },
   {
