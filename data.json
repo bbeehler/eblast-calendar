@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-07T19:42:27.928Z",
- "hash": "6e5db46e47e74b81",
+ "generated": "2026-10-07T23:35:24.252Z",
+ "hash": "794949dcf655c160",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -652,7 +652,7 @@
    "d": "2026-10-05",
    "t": "CAIC · registration launch",
    "p": "caic",
-   "s": "A",
+   "s": "C",
    "id": "4565679553",
    "url": "https://app-us2.wrike.com/open.htm?id=4565679553",
    "o": "",
