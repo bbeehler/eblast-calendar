@@ -75,6 +75,17 @@ const PRODUCTION = /\b(write|copy|translat\w*|design|layout|review|proof\w*|draf
 const CONTAINER = /one-off content|all email marketing projects/i;
 const MONTHS = /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\.?\b/gi;
 
+// A task is a send if it reads like one ("Eblast: …", "eBlast to all members", "Send eBlast"),
+// not a production step ("Design and layout eBlast", "Provide the attendee list … for e-blast #1").
+const SEND_PREFIX = /^\s*(\d+\s*[.)-]\s*)?(aiac\s+)?e-?\s?blast\b\s*[:\-–]?/i;
+const NOT_SEND = /\b(submit|provide|request|update|add|linktree|attendee list|webpage|plan)\b|copy to/i;
+function isSendTask(title) {
+  if (CONTAINER.test(title) || NOT_SEND.test(title)) return false;
+  const sendWord = /\bsend\b|\bschedule\b/i.test(title);
+  if (PRODUCTION.test(title) && !sendWord) return false;
+  return SEND_PREFIX.test(title) || sendWord || /e-?\s?blast\s+(to|of)\b/i.test(title);
+}
+
 function isGeneric(title) {
   const rest = norm(title)
     .replace(BLAST, " ").replace(MONTHS, " ")
@@ -152,14 +163,21 @@ async function main() {
   console.log("Custom fields:", JSON.stringify(fieldIds));
 
   // Tasks with "blast" in the title anywhere in the space
-  const tasks = await paged(`/spaces/${SPACE_ID}/tasks`, {
-    descendants: "true", subTasks: "true", title: "blast",
-    fields: ["responsibleIds", "parentIds", "customFields"],
-  });
-  console.log(`Tasks matching "blast": ${tasks.length}`);
+  // Wrike's title filter is case-sensitive, so ask for both "blast" (Eblast, e-blast) and "Blast" (eBlast, e-Blast)
+  const byId = new Map();
+  for (const title of ["blast", "Blast", "BLAST"]) {
+    const found = await paged(`/spaces/${SPACE_ID}/tasks`, {
+      descendants: "true", subTasks: "true", title,
+      fields: ["responsibleIds", "parentIds", "customFields"],
+    });
+    console.log(`Tasks matching "${title}": ${found.length}`);
+    for (const t of found) byId.set(t.id, t);
+  }
+  const tasks = [...byId.values()];
 
   // Projects/folders in the space, to find eBlast projects with no separate send task
-  const tree = await paged(`/spaces/${SPACE_ID}/folders`, { descendants: "true" }).catch(() => []);
+  const tree = await api(`/spaces/${SPACE_ID}/folders`).then(r => r.data || []).catch(e => { console.log(`Folder tree failed: ${e.message}`); return []; });
+  console.log(`Folders and projects in space: ${tree.length}`);
   const blastProjects = tree.filter(f => f.project && BLAST.test(f.title) && !CONTAINER.test(f.title));
 
   // Parent details for titles and project dates
@@ -178,9 +196,7 @@ async function main() {
   const usedProjects = new Set();
 
   for (const t of tasks) {
-    if (CONTAINER.test(t.title)) continue;
-    if (PRODUCTION.test(t.title) && !/^\s*(\d+\.\s*)?(send|e-?\s?blast\s*(to|:))/i.test(t.title)) continue;
-    if (/copy to/i.test(t.title)) continue;
+    if (!isSendTask(t.title)) continue;
     const due = t.dates?.due || t.dates?.start;
     if (!due) continue;
     const d = due.slice(0, 10);
@@ -253,6 +269,11 @@ async function main() {
     delete s._stepHint; delete s._cf;
   }
 
+  const prevCount = (prev0 => (prev0.sends || []).filter(x => x.d >= FROM).length)(JSON.parse(await readFile(OUT, "utf8").catch(() => "{}")));
+  if (prevCount >= 10 && sends.length < prevCount * 0.6 && !process.env.FORCE) {
+    console.error(`Found ${sends.length} sends, down from ${prevCount}. That looks like a bad pull, so the calendar keeps its last data. Run with FORCE=1 to accept it.`);
+    process.exit(1);
+  }
   const hash = createHash("sha256").update(JSON.stringify(sends)).digest("hex").slice(0, 16);
   const prev = JSON.parse(await readFile(OUT, "utf8").catch(() => "{}"));
   const changed = prev.hash !== hash;
