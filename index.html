@@ -186,7 +186,7 @@ footer p{margin:0}
   <header class="top">
     <div>
       <h1>MarComms eBlast Calendar</h1>
-      <p class="sub">Send dates from the <a href="https://app-us2.wrike.com/open.htm?id=4515706745" target="_blank" rel="noopener">Marketing &amp; Communications Operations — New</a> space in Wrike, checked against the 2026 email send audit · snapshot Oct 7, 2026</p>
+      <p class="sub">Send dates from the <a href="https://app-us2.wrike.com/open.htm?id=4515706745" target="_blank" rel="noopener">Marketing &amp; Communications Operations — New</a> space in Wrike, checked against the 2026 email send audit · <span id="fresh">loading…</span></p>
     </div>
     <div class="stats" id="stats"></div>
   </header>
@@ -231,7 +231,7 @@ footer p{margin:0}
 
   <footer>
     <p>Each entry is the send task in Wrike, or the eBlast project's end date where no separate send task exists. Click an entry to open it. “Past due” means the send date has passed but the task is still open, which usually means nobody closed it after the send went out.</p>
-    <p>Which sends count as broad, and each send's step in its series, were tagged by reading the Wrike titles and audiences. Regional golf, CCIF-list sends, KBYG, surveys and sponsor-segment emails are treated as targeted. Newsletters, Driving Change, Auto-Jobs, the Event Calendar and research reports are not tracked as eBlasts in this space. So the weekly totals are a minimum, and a week that looks clear may already have a newsletter in it.</p>
+    <p>The calendar refreshes from Wrike every 15 minutes. Whether a send is broad, and its step in its series, comes from the Broad send and Series step fields on the Wrike task when they're filled in. Otherwise it's guessed from the title and marked auto-tagged. Regional golf, CCIF-list sends, KBYG, surveys and sponsor-segment emails are treated as targeted. Newsletters, Driving Change, Auto-Jobs, the Event Calendar and research reports are not tracked as eBlasts in this space. So the weekly totals are a minimum, and a week that looks clear may already have a newsletter in it.</p>
   </footer>
 </div>
 
@@ -249,75 +249,10 @@ const S={
   "ccif-sc":"CCIF SC applications","caic-reg":"CAIC registration","caic-vend":"CAIC past CCIF vendors","bod":"BOD / DSA / YLA nominations",
   "ccif-sup27":"2027 CCIF Supporter program","prospectus":"2027 Sponsorship Prospectus","ypa-ws":"YPA Workshop & reception"
 };
-const W=id=>"https://app-us2.wrike.com/open.htm?id="+id;
-// [date, title, program, status C/A/X, wrike id, owner, broad 1/0, kind, series, step]
-const RAW=[
-["2026-06-22","QC Golf Tournament · reg rmd #1","golf","C",4480136521,"",0,"reg","qc-golf",2],
-["2026-06-25","BC Golf Tournament · reg rmd #1","golf","C",4483799011,"",0,"reg","bc-golf",2],
-["2026-06-25","AB Golf Tournament · reg rmd #1 (AB members + past golfers)","golf","C",4480139728,"",0,"reg","ab-golf",2],
-["2026-06-26","MB Golf Tournament · reg rmd #1","golf","C",4483804060,"",0,"reg","mb-golf",2],
-["2026-06-30","CCIF Montréal · reg rmd #1","ccif","C",4482177371,"",0,"reg","ccif-reg",2],
-["2026-07-07","Canada Night · reg rmd #1","cn","C",4466796469,"",1,"reg","cn-reg",2],
-["2026-07-07","QC Golf Tournament · reg rmd #2","golf","C",4480136677,"",0,"reg","qc-golf",3],
-["2026-07-14","AB Golf Tournament · reg rmd #2","golf","C",4480140356,"",0,"reg","ab-golf",3],
-["2026-07-14","BC Golf Tournament · reg rmd #2","golf","C",4483799019,"",0,"reg","bc-golf",3],
-["2026-07-24","MB Golf Tournament · reg rmd #2","golf","C",4483804089,"",0,"reg","mb-golf",3],
-["2026-07-28","CCIF Montréal · reg rmd #2","ccif","C",4482177474,"",0,"reg","ccif-reg",3],
-["2026-07-29","Canada Night · reg rmd #2","cn","C",4466796738,"",1,"reg","cn-reg",3],
-["2026-07-29","BC Golf Tournament · rmd #3, reg closes in 1 week","golf","X",4483799036,"",0,"reg","bc-golf",4],
-["2026-08-05","QC Golf Tournament · rmd #3, 1 week until reg ends","golf","C",4483799212,"",0,"reg","qc-golf",4],
-["2026-08-05","CCIF Montréal · Supporters reg rmd #1","ccif","C",4513167087,"",0,"spons","ccif-sup",2],
-["2026-08-07","BC Golf Tournament · KBYG (registered)","golf","C",4483799066,"",0,"log"],
-["2026-08-11","BC Golf Tournament · post-event survey","golf","C",4483801824,"",0,"log"],
-["2026-08-13","MB Golf Tournament · reg rmd #3","golf","C",4483804109,"",0,"reg","mb-golf",4],
-["2026-08-14","AB Golf Tournament · reg rmd #3","golf","C",4480140441,"",0,"reg","ab-golf",4],
-["2026-08-18","QC Golf Tournament · KBYG (registered)","golf","C",4480136766,"",0,"log"],
-["2026-08-19","Canada Night · reg rmd #3","cn","C",4483798719,"",1,"reg","cn-reg",4],
-["2026-08-19","CCIF Montréal · reg rmd #3","ccif","C",4482177487,"",0,"reg","ccif-reg",4],
-["2026-08-19","Tariff eBlast to members","mem","C",4535854776,"Sebastien Guindon",1,"adv"],
-["2026-08-20","I-CAR Platinum email","icar","C",4530024317,"",1,"content"],
-["2026-08-21","CCIF Montréal · Supporters reg rmd #2","ccif","A",4513167153,"",0,"spons","ccif-sup",3],
-["2026-08-26","MB Golf Tournament · KBYG (registered)","golf","C",4483804126,"",0,"log"],
-["2026-08-26","AB Golf Tournament · KBYG (registered)","golf","C",4480140670,"",0,"log"],
-["2026-08-28","QC Golf Tournament · post-event survey","golf","C",4480136990,"",0,"log"],
-["2026-09-02","Canada Night · single ticket launch","cn","C",4483798743,"",1,"reg","cn-reg",5],
-["2026-09-02","AB Golf Tournament · post-event survey","golf","C",4480140791,"",0,"log"],
-["2026-09-03","CCIF Montréal · reg rmd #4, closes in 1 week","ccif","C",4482177748,"",0,"reg","ccif-reg",5],
-["2026-09-03","SAIC #1 · launch","saic","C",4516115573,"",1,"reg","saic-reg",1],
-["2026-09-04","SAIC sponsorship · Maple Leaf & Gold sponsors","saic","C",4546919858,"",0,"spons","saic-spons",1],
-["2026-09-08","Aftermarket Service & Warranty Statement · all members","mem","C",4540438577,"",1,"content"],
-["2026-09-09","MB Golf Tournament · post-event survey","golf","C",4483804147,"",0,"log"],
-["2026-09-10","CEO Update · September","mem","C",4546237589,"Sebastien Guindon",1,"content"],
-["2026-09-10","ECC message · all members","mem","C",4549896507,"Sebastien Guindon",1,"content"],
-["2026-09-14","CCIF Montréal · KBYG (registered)","ccif","C",4480136036,"",0,"log"],
-["2026-09-14","Canada Night · sponsorship rmd #1","cn","C",4553075978,"",1,"spons","cn-spons",2],
-["2026-09-18","CCIF Montréal · post-event survey (actual attendees)","ccif","A",4480136391,"Brian Beehler",0,"log"],
-["2026-09-21","SAIC sponsorship · all members","saic","C",4547651984,"",1,"spons","saic-spons",2],
-["2026-09-22","Canada Night · one month left to register","cn","A",4483798754,"",1,"reg","cn-reg",6],
-["2026-09-24","CCIF SC · applications launch","ccif","A",4558139748,"",0,"reg","ccif-sc",1],
-["2026-09-28","Canada Night · sponsorship rmd #2","cn","C",4553728322,"",1,"spons","cn-spons",3],
-["2026-10-02","QC Division · member application promo","mem","A",4566997501,"",0,"content"],
-["2026-10-05","CAIC · registration launch","caic","A",4565679553,"",1,"reg","caic-reg",1],
-["2026-10-07","2027 Sponsorship Prospectus · general membership","mem","A",4577013860,"",1,"spons","prospectus",1],
-["2026-10-08","SAIC · sponsorship last call","saic","X",4578068760,"Emily Reed",1,"spons","saic-spons",3],
-["2026-10-27","Canada Night · 3 days left to register","cn","A",4483798782,"",1,"reg","cn-reg",7],
-["2026-10-28","BOD / DSA / YLA nominations launch","mem","A",4465340542,"",1,"content","bod",1],
-["2026-10-29","CAIC · registration rmd #1","caic","A",4565679625,"",1,"reg","caic-reg",2],
-["2026-10-30","Canada Night · KBYG #1 (registered)","cn","A",4483798917,"",0,"log"],
-["2026-11-02","Canada Night · KBYG #2 (registered)","cn","A",4483798850,"",0,"log"],
-["2026-11-10","CCIF SC · application rmd #3 (9:30 a.m.)","ccif","A",4558139836,"",0,"reg","ccif-sc",4],
-["2026-11-17","CAIC · past CCIF vendors reg #1","caic","A",4566073323,"",0,"spons","caic-vend",1],
-["2026-11-24","YPA Workshop & reception reg (general public)","ypa","A",4579882354,"",1,"reg","ypa-ws",1],
-["2026-12-03","CAIC · registration rmd #2","caic","A",4566072937,"",1,"reg","caic-reg",3],
-["2026-12-10","BOD / YL / DSA nominations close","mem","A",4579882385,"",1,"content","bod",2],
-["2027-01-14","CCIF Supporter launch · past Supporters","ccif","A",4579882315,"",0,"spons","ccif-sup27",1],
-["2027-01-20","CAIC · past CCIF vendors reg rmd #2","caic","A",4566073519,"",0,"spons","caic-vend",2],
-["2027-03-10","CAIC · registration rmd #3","caic","A",4566073008,"",1,"reg","caic-reg",4],
-["2027-03-26","CAIC · KBYG #1","caic","A",4566073655,"",0,"log"],
-["2027-03-29","CAIC · KBYG #2","caic","A",4566073658,"",0,"log"]
-];
-const EV=RAW.map(([d,t,p,s,id,o,b,k,se,st],i)=>({i,d,t,p,s,url:W(id),o,b:!!b,k,se,st}));
+let EV=[], META={}, state;
+const sName=se=>{ if(S[se])return S[se]; const [p,k]=String(se||"").split("-"); return P[p]?`${P[p].name} ${k==="spons"?"sponsorship":"registration"}`:String(se||"this"); };
 
+function main(){
 /* ---------- dates ---------- */
 const pad=n=>String(n).padStart(2,"0");
 const iso=dt=>dt.getFullYear()+"-"+pad(dt.getMonth()+1)+"-"+pad(dt.getDate());
@@ -374,11 +309,11 @@ live.forEach(e=>{
   if(!e.se||!(e.k==="reg"||e.k==="spons"))return;
   if(e.st>SERIES_CAP){
     e.issues.push({code:"steps",label:`Send #${e.st} in series`,sev:"bad",
-      why:`This is send #${e.st} in the ${S[e.se]} series. The playbook stops at ${SERIES_CAP}: launch, one reminder, last chance.`,
+      why:`This is send #${e.st} in the ${sName(e.se)} series. The playbook stops at ${SERIES_CAP}: launch, one reminder, last chance.`,
       fix:"Cut it, fold it into the last chance, or get the director's sign-off."});
   } else if(e.st===SERIES_CAP && e.k==="reg"){
     e.issues.push({code:"last",label:"Last chance",sev:"info",
-      why:`Send #3 in the ${S[e.se]} series, so this is the last chance under the playbook.`,
+      why:`Send #3 in the ${sName(e.se)} series, so this is the last chance under the playbook.`,
       fix:"Send it only to people who opened or clicked an earlier send and haven't registered."});
   }
 });
@@ -398,10 +333,11 @@ const ahead=e=>e.d>=FROM&&e.s==="A";
 const hist=e=>e.d<RULES_FROM;
 
 /* ---------- state ---------- */
-let state={y:2026,m:9,view:"month",color:"kind",cancel:false,on:new Set(Object.keys(P))};
+state={y:2026,m:9,view:"month",color:"kind",cancel:false,on:new Set(Object.keys(P))};
 try{const v=localStorage.getItem("eb-view");if(v)state.view=v;const c=localStorage.getItem("eb-color");if(c)state.color=c;}catch(e){}
 if(window.matchMedia("(max-width:720px)").matches)state.view="list";
-{const t=parse(TODAY);if(t>=parse("2026-06-01")&&t<=parse("2027-03-31")){state.y=t.getFullYear();state.m=t.getMonth();}}
+{const t=parse(TODAY);state.y=t.getFullYear();state.m=t.getMonth();}
+try{const k=JSON.parse(sessionStorage.getItem("eb-month")||"null");if(k){state.y=k.y;state.m=k.m;if(k.view)state.view=k.view;sessionStorage.removeItem("eb-month")}}catch(e){}
 const visible=()=>EV.filter(e=>state.on.has(e.p)&&(state.cancel||e.s!=="X"));
 const colorOf=e=>state.color==="kind"?K[e.k].c:P[e.p].c;
 
@@ -440,7 +376,7 @@ function rulePanel(){
     const all=[...bad,...info];
     return `<div class="issue"><span class="dt">${fmtShort(e.d)}</span><div class="what">
       <a href="${e.url}" target="_blank" rel="noopener">${esc(e.t)}</a>
-      <div class="tags">${all.map(x=>`<span class="badge ${x.sev==="bad"?"bad":"warn"}">${x.label}</span>`).join("")}<span class="badge" style="background:var(--soft);color:var(--muted)">${e.b?"Broad":"Targeted"} · ${K[e.k].name}</span></div>
+      <div class="tags">${all.map(x=>`<span class="badge ${x.sev==="bad"?"bad":"warn"}">${x.label}</span>`).join("")}<span class="badge" style="background:var(--soft);color:var(--muted)">${e.b?"Broad":"Targeted"} · ${K[e.k].name}</span>${e.auto?'<span class="badge warn" title="Guessed from the Wrike title. Fill in Broad send and Series step on the task to confirm.">Auto-tagged</span>':""}</div>
       ${all.map(x=>`<div class="fix">${esc(x.why)} <strong>${esc(x.fix)}</strong></div>`).join("")}
     </div></div>`}).join("");
   const past=live.filter(hist);
@@ -482,7 +418,7 @@ function flagsHtml(e){
 function evTag(e){
   const cls=["ev"];if(!e.b)cls.push("tgt");if(e.s==="C")cls.push("done");if(e.s==="X")cls.push("cancel");if(isLate(e))cls.push("late");if(isRed(e))cls.push("flagged");
   const st=e.s==="C"?"Sent":e.s==="X"?"Cancelled":isLate(e)?"Past due, still open":"Scheduled";
-  const tip=[P[e.p].name,e.t,e.o,(e.b?"Broad":"Targeted")+" · "+K[e.k].name,e.se?`${S[e.se]} · send #${e.st}`:"",st,...e.issues.map(x=>x.label+": "+x.fix)].filter(Boolean).join("\n");
+  const tip=[P[e.p].name,e.t,e.o,e.auto?"Auto-tagged from the Wrike title. Confirm broad send and series step in Wrike.":"",(e.b?"Broad":"Targeted")+" · "+K[e.k].name,e.se?`${sName(e.se)} · send #${e.st}`:"",st,...e.issues.map(x=>x.label+": "+x.fix)].filter(Boolean).join("\n");
   return `<a class="${cls.join(" ")}" href="${e.url}" target="_blank" rel="noopener" style="--c:var(${colorOf(e)})" title="${esc(tip)}">${e.s!=="X"?flagsHtml(e):""}<span class="tx">${esc(e.t)}</span></a>`;
 }
 function month(){
@@ -517,7 +453,7 @@ function list(){
     return `<section class="wk"><h3><span>Week of ${fmtMD(w)}</span><span class="cnt ${over?"over":""}">${n} of ${WEEK_CAP} broad send${n===1?"":"s"}</span></h3>`+
     es.map(e=>{
       const pill=e.s==="C"?'<span class="pill">Sent</span>':e.s==="X"?'<span class="pill">Cancelled</span>':isLate(e)?'<span class="pill late">Past due, still open</span>':'<span class="pill open">Scheduled</span>';
-      return `<a class="row ${e.s==="X"?"cancel":""} ${isRed(e)?"flagged":""}" href="${e.url}" target="_blank" rel="noopener" style="--c:var(${colorOf(e)})"><span class="dt">${fmtShort(e.d)}</span><span class="t">${e.s!=="X"?flagsHtml(e):""}<b>${esc(e.t)}</b><small><i></i>${P[e.p].name} · ${e.b?"Broad":"Targeted"} · ${K[e.k].name}${e.se?` · send #${e.st}`:""}${e.o?" · "+esc(e.o):""}</small></span>${pill}</a>`}).join("")+`</section>`}).join("")+`</div>`;
+      return `<a class="row ${e.s==="X"?"cancel":""} ${isRed(e)?"flagged":""}" href="${e.url}" target="_blank" rel="noopener" style="--c:var(${colorOf(e)})"><span class="dt">${fmtShort(e.d)}</span><span class="t">${e.s!=="X"?flagsHtml(e):""}<b>${esc(e.t)}</b><small><i></i>${P[e.p].name} · ${e.b?"Broad":"Targeted"} · ${K[e.k].name}${e.se?` · send #${e.st}`:""}${e.o?" · "+esc(e.o):""}${e.auto?' · <span style="color:var(--warn)">auto-tagged</span>':""}</small></span>${pill}</a>`}).join("")+`</section>`}).join("")+`</div>`;
 }
 function render(){
   document.getElementById("label").textContent=MONTHS[state.m]+" "+state.y;
@@ -546,6 +482,41 @@ document.getElementById("cKind").onclick=()=>{state.color="kind";save("eb-color"
 document.getElementById("cProg").onclick=()=>{state.color="prog";save("eb-color","prog");render()};
 document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT")return;if(e.key==="ArrowLeft")shift(-1);if(e.key==="ArrowRight")shift(1)});
 stats();rulePanel();filters();render();
+}
+
+/* ---------- live data ---------- */
+const ago=iso=>{const m=Math.round((Date.now()-new Date(iso))/60000);if(m<1)return"just now";if(m<60)return m+" min ago";const h=Math.round(m/60);if(h<24)return h+" hr ago";return new Date(iso).toLocaleDateString("en-CA",{month:"short",day:"numeric"})};
+async function freshness(){
+  let checked=null;
+  try{const r=await fetch("checked.json?"+Date.now(),{cache:"no-store"});if(r.ok)checked=(await r.json()).checked}catch(e){}
+  const el=document.getElementById("fresh");
+  const parts=[];
+  if(checked)parts.push("checked against Wrike "+ago(checked));
+  if(META.generated)parts.push("last change "+new Date(META.generated).toLocaleString("en-CA",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}));
+  el.textContent=parts.join(" · ")||"live from Wrike";
+}
+async function boot(){
+  try{
+    const r=await fetch("data.json?"+Date.now(),{cache:"no-store"});
+    if(!r.ok)throw new Error(r.status);
+    META=await r.json();
+    EV=(META.sends||[]).map((x,i)=>({...x,i,b:!!x.b,o:x.o||"",url:x.url||("https://app-us2.wrike.com/open.htm?id="+x.id)}));
+  }catch(e){
+    document.getElementById("view").innerHTML='<div class="empty">The send data didn\'t load. Refresh the page in a minute; if it keeps happening, check the Actions tab in the eblast-calendar repo.</div>';
+    return;
+  }
+  main();
+  freshness();
+  setInterval(async()=>{
+    try{
+      const r=await fetch("data.json?"+Date.now(),{cache:"no-store"});
+      const j=await r.json();
+      if(j.hash&&j.hash!==META.hash){try{sessionStorage.setItem("eb-month",JSON.stringify({y:state.y,m:state.m,view:state.view}))}catch(e){}location.reload();return}
+    }catch(e){}
+    freshness();
+  },5*60*1000);
+}
+boot();
 </script>
 </body>
 </html>

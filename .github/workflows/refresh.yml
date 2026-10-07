@@ -1,0 +1,61 @@
+name: Refresh from Wrike
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # every 15 minutes (GitHub may run it a few minutes late)
+  workflow_dispatch:          # "Run workflow" button on the Actions tab
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Pull eBlast sends from Wrike
+        env:
+          WRIKE_TOKEN: ${{ secrets.WRIKE_TOKEN }}
+        run: node scripts/refresh.mjs
+
+      - name: Save the data if anything changed
+        run: |
+          if ! git diff --quiet -- data.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data.json
+            git commit -m "Refresh eBlast data from Wrike"
+            git push
+          fi
+
+      - name: Build the site
+        run: |
+          mkdir -p _site
+          cp index.html data.json robots.txt _site/
+          touch _site/.nojekyll
+          echo "{\"checked\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" > _site/checked.json
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
