@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>MarComms eBlast Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: header + stats, rule check panel, controls, Mon-start month grid with a weekly broad-send column (or weekly list), rules reference */
+:root{
+  --bg:#f5f6f9; --surface:#ffffff; --ink:#172033; --muted:#5b6679; --line:#dde2ea; --soft:#eef1f6;
+  --accent:#1d3f8f; --today:#1d3f8f;
+  --bad:#c8102e; --bad-bg:#fde8eb; --warn:#a85407; --warn-bg:#fdf0e3; --ok:#2f7a3d; --ok-bg:#e7f4e9; --done:#6b7686;
+  --k-ask:#d4213d; --k-content:#1d3f8f; --k-log:#6c8aa8; --k-adv:#7a4bc4;
+  --c-cn:#c0392b; --c-ccif:#0f7b6c; --c-caic:#1f4fd1; --c-golf:#5b8c1a; --c-mem:#7a4bc4; --c-saic:#c27c0e; --c-icar:#0b7fae; --c-ypa:#c2367a;
+  --font-ui:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-data:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141c; --surface:#161d28; --ink:#e6ebf2; --muted:#95a1b3; --line:#283244; --soft:#1c2533;
+  --accent:#86a6ff; --today:#86a6ff;
+  --bad:#ff6b7f; --bad-bg:#3a1820; --warn:#f0a35e; --warn-bg:#33230f; --ok:#74c784; --ok-bg:#16301c; --done:#8592a5;
+  --k-ask:#ff6b7f; --k-content:#86a6ff; --k-log:#8fa9c4; --k-adv:#b896f2;
+  --c-cn:#f07a6c; --c-ccif:#42c2ad; --c-caic:#86a6ff; --c-golf:#9bcf55; --c-mem:#b896f2; --c-saic:#f0b54a; --c-icar:#4fc3ef; --c-ypa:#f27ab3;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141c; --surface:#161d28; --ink:#e6ebf2; --muted:#95a1b3; --line:#283244; --soft:#1c2533;
+  --accent:#86a6ff; --today:#86a6ff;
+  --bad:#ff6b7f; --bad-bg:#3a1820; --warn:#f0a35e; --warn-bg:#33230f; --ok:#74c784; --ok-bg:#16301c; --done:#8592a5;
+  --k-ask:#ff6b7f; --k-content:#86a6ff; --k-log:#8fa9c4; --k-adv:#b896f2;
+  --c-cn:#f07a6c; --c-ccif:#42c2ad; --c-caic:#86a6ff; --c-golf:#9bcf55; --c-mem:#b896f2; --c-saic:#f0b54a; --c-icar:#4fc3ef; --c-ypa:#f27ab3;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:14px;line-height:1.45}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:20px;padding-block:24px 48px;display:grid;gap:20px}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+h1{font-size:24px;font-weight:700;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h2{font-size:16px;font-weight:600;margin:0}
+.sub{color:var(--muted);margin:2px 0 0;font-size:13px}
+.sub a{color:var(--accent)}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px;display:flex;align-items:baseline;gap:8px}
+.stat b{font-family:var(--font-data);font-size:18px;font-weight:500;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:12px}
+.stat.warn{background:var(--warn-bg);border-color:transparent}.stat.warn b,.stat.warn span{color:var(--warn)}
+.stat.bad{background:var(--bad-bg);border-color:transparent}.stat.bad b,.stat.bad span{color:var(--bad)}
+
+/* Rule check */
+.check{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.check summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px}
+.check summary::-webkit-details-marker{display:none}
+.check summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:12px}
+.sumtxt{display:grid;gap:2px}
+.sumtxt .h2{font-size:16px;font-weight:600}
+.sumright{display:flex;align-items:center;gap:10px}
+.chev{width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s;margin-top:-4px}
+.check[open] .chev{transform:rotate(-135deg);margin-top:4px}
+.accbody{padding:0 16px 16px;display:grid;gap:14px;border-top:1px solid var(--line);padding-top:14px}
+.note{margin:0;color:var(--muted);font-size:12.5px;max-width:80ch}
+.flagbtn{background:var(--bad-bg);color:var(--bad);border-color:transparent;font-size:12.5px;font-weight:600;display:inline-flex;gap:6px;align-items:center}
+.flagbtn:hover{border-color:var(--bad)}
+.ev.flagged{box-shadow:inset 0 0 0 1px var(--bad)}
+.row.flagged{box-shadow:inset 3px 0 0 var(--bad)}
+.check-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline}
+.check-head p{margin:0;color:var(--muted);font-size:12.5px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.rule{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;gap:4px;align-content:start}
+.rule .rn{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.rule .rn b{font-size:13px;font-weight:600}
+.rule p{margin:0;font-size:12px;color:var(--muted)}
+.badge{font-family:var(--font-data);font-size:11px;padding:1px 8px;border-radius:999px;white-space:nowrap}
+.badge.ok{background:var(--ok-bg);color:var(--ok)}
+.badge.bad{background:var(--bad-bg);color:var(--bad)}
+.badge.warn{background:var(--warn-bg);color:var(--warn)}
+.issues{display:grid;gap:0;border-top:1px solid var(--line)}
+.issue{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);align-items:start}
+.issue:last-child{border-bottom:0}
+.issue .dt{font-family:var(--font-data);font-size:12px;color:var(--muted);padding-top:2px}
+.issue .what{min-width:0;display:grid;gap:3px}
+.issue .what a{color:var(--ink);font-weight:600;text-decoration:none}
+.issue .what a:hover{text-decoration:underline}
+.issue .tags{display:flex;gap:6px;flex-wrap:wrap}
+.issue .fix{font-size:12.5px;color:var(--muted)}
+.issue .fix strong{color:var(--ink);font-weight:500}
+.none{color:var(--ok);font-size:13px;padding:6px 0}
+.history{font-size:12.5px;color:var(--muted);margin:0}
+
+/* Controls */
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.nav{display:flex;align-items:center;gap:6px}
+.nav h2{font-size:18px;margin:0 6px;min-width:150px}
+button{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{border:0;border-radius:0;font-size:13px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.right{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;padding:4px 10px;border-radius:999px}
+.chip i{width:9px;height:9px;border-radius:50%;background:var(--c);display:inline-block}
+.chip[aria-pressed="false"]{opacity:.45}
+.chip .n{font-family:var(--font-data);color:var(--muted);font-size:11px}
+label.tog{display:inline-flex;gap:6px;align-items:center;font-size:12.5px;color:var(--muted);cursor:pointer}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.sw{width:14px;height:12px;border-radius:2px;background:color-mix(in srgb,var(--c) 14%,transparent);border-left:3px solid var(--c)}
+.sw.tgt{border-left-style:dotted;background:transparent;outline:1px dashed color-mix(in srgb,var(--c) 45%,transparent);outline-offset:-1px}
+
+/* Month grid */
+.gridwrap{overflow-x:auto}
+.grid{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:760px}
+.dow,.wkrow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr)) repeat(2,minmax(0,.62fr)) 64px}
+.dow div{padding:8px 10px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);background:var(--soft)}
+.dow div:last-child{text-align:center}
+.wkrow{border-bottom:1px solid var(--line)}
+.wkrow:last-child{border-bottom:0}
+.day{min-height:112px;border-right:1px solid var(--line);padding:6px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.day.out{background:var(--soft)}
+.day.out .dnum{opacity:.45}
+.day.wknd{background:color-mix(in srgb,var(--soft) 55%,var(--surface))}
+.day.double{box-shadow:inset 0 0 0 2px var(--bad)}
+.dnum{font-family:var(--font-data);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;align-self:flex-start}
+.day.today .dnum{background:var(--today);color:var(--surface);border-radius:4px;padding:0 5px}
+.wtot{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:8px 4px;gap:2px}
+.wtot b{font-family:var(--font-data);font-size:22px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.wtot small{font-size:10px;color:var(--muted);text-align:center;line-height:1.2}
+.wtot.over b{color:var(--bad)}
+.wtot.at b{color:var(--ink)}
+.wtot.under b{color:var(--muted)}
+.ev{display:block;text-decoration:none;color:var(--ink);font-size:12px;line-height:1.3;padding:3px 6px 3px 7px;border-radius:4px;background:color-mix(in srgb,var(--c) 13%,transparent);border-left:3px solid var(--c)}
+.ev .tx{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ev.tgt{background:transparent;border-left-style:dotted;outline:1px dashed color-mix(in srgb,var(--c) 40%,transparent);outline-offset:-1px}
+.ev:hover{background:color-mix(in srgb,var(--c) 24%,transparent)}
+.ev.done{color:var(--done)}
+.ev.cancel{color:var(--done);opacity:.7}
+.ev.cancel .tx{text-decoration:line-through}
+.ev.late{box-shadow:inset 0 0 0 1px var(--warn)}
+.flag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.02em;padding:0 5px;border-radius:3px;margin:0 4px 2px 0;background:var(--bad-bg);color:var(--bad)}
+.flag.info{background:var(--warn-bg);color:var(--warn)}
+.flag.hist{background:var(--soft);color:var(--muted)}
+
+/* Agenda */
+.agenda{display:grid;gap:14px}
+.wk{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.wk h3{margin:0;padding:8px 14px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:var(--soft);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.wk h3 .cnt{font-family:var(--font-data);text-transform:none;letter-spacing:0}
+.wk h3 .cnt.over{color:var(--bad)}
+.row{display:grid;grid-template-columns:90px 1fr auto;gap:12px;padding:9px 14px;border-top:1px solid var(--line);align-items:start;text-decoration:none;color:var(--ink)}
+.row:first-of-type{border-top:0}
+.row:hover{background:var(--soft)}
+.row .dt{font-family:var(--font-data);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:1px}
+.row .t{min-width:0}
+.row .t b{font-weight:500;display:block}
+.row .t small{color:var(--muted);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.row .t small i{width:8px;height:8px;border-radius:50%;background:var(--c);display:inline-block}
+.pill{font-size:11px;padding:2px 8px;border-radius:999px;white-space:nowrap;border:1px solid var(--line);color:var(--muted)}
+.pill.late{background:var(--warn-bg);color:var(--warn);border-color:transparent}
+.pill.open{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.row.cancel b{text-decoration:line-through;color:var(--done)}
+.empty{padding:28px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:10px}
+
+/* Rules reference */
+
+code{font-family:var(--font-data);font-size:12px;background:var(--soft);padding:1px 5px;border-radius:4px}
+footer{color:var(--muted);font-size:12px;max-width:80ch;display:grid;gap:6px}
+footer p{margin:0}
+@media (max-width:720px){
+  .wrap{padding-inline:16px}
+  .nav h2{min-width:0;font-size:16px}
+  .row{grid-template-columns:64px 1fr}
+  .row .pill{grid-column:2;justify-self:start}
+  .issue{grid-template-columns:1fr;gap:2px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>MarComms eBlast Calendar</h1>
+      <p class="sub">Send dates from the <a href="https://app-us2.wrike.com/open.htm?id=4515706745" target="_blank" rel="noopener">Marketing &amp; Communications Operations — New</a> space in Wrike, checked against the 2026 email send audit · snapshot Oct 7, 2026</p>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="controls">
+    <div class="nav">
+      <button id="prev" aria-label="Previous month">‹</button>
+      <h2 id="label"></h2>
+      <button id="next" aria-label="Next month">›</button>
+      <button id="todayBtn">Today</button>
+      <button id="flagBtn" class="flagbtn" hidden></button>
+    </div>
+    <div class="right">
+      <label class="tog"><input type="checkbox" id="showCancel"> Show cancelled</label>
+      <div class="seg" role="group" aria-label="Colour entries by">
+        <button id="cProg" aria-pressed="false">By program</button>
+        <button id="cKind" aria-pressed="true">Ask vs content</button>
+      </div>
+      <div class="seg" role="group" aria-label="View">
+        <button id="vMonth" aria-pressed="true">Month</button>
+        <button id="vList" aria-pressed="false">List</button>
+      </div>
+    </div>
+  </div>
+  <div class="filters" id="filters" aria-label="Filter by program"></div>
+  <div class="legend" id="legend"></div>
+
+  <main id="view"></main>
+
+  <details class="check" id="checkAcc">
+    <summary>
+      <span class="sumtxt"><span class="eyebrow">Send rules check</span><span class="h2">What breaks the new rules from today on</span></span>
+      <span class="sumright"><span id="accCount"></span><span class="chev" aria-hidden="true"></span></span>
+    </summary>
+    <div class="accbody">
+      <p class="note">Checked against the audit's fixes 1 to 3: two broad sends a week and never two in a day, three sends per reminder series, one partner email a month. Rules took effect Oct 1, 2026.</p>
+      <div class="rules" id="rules"></div>
+      <div class="issues" id="issues"></div>
+      <p class="history" id="history"></p>
+    </div>
+  </details>
+
+  <footer>
+    <p>Each entry is the send task in Wrike, or the eBlast project's end date where no separate send task exists. Click an entry to open it. “Past due” means the send date has passed but the task is still open, which usually means nobody closed it after the send went out.</p>
+    <p>Which sends count as broad, and each send's step in its series, were tagged by reading the Wrike titles and audiences. Regional golf, CCIF-list sends, KBYG, surveys and sponsor-segment emails are treated as targeted. Newsletters, Driving Change, Auto-Jobs, the Event Calendar and research reports are not tracked as eBlasts in this space. So the weekly totals are a minimum, and a week that looks clear may already have a newsletter in it.</p>
+  </footer>
+</div>
+
+<script>
+const RULES_FROM="2026-10-01", WEEK_CAP=2, MONTH_CAP=9, SERIES_CAP=3;
+const P={
+  cn:{name:"Canada Night",c:"--c-cn"}, ccif:{name:"CCIF",c:"--c-ccif"}, caic:{name:"CAIC / Industry Week",c:"--c-caic"},
+  golf:{name:"Division golf",c:"--c-golf"}, mem:{name:"Member & corporate",c:"--c-mem"}, saic:{name:"SAIC",c:"--c-saic"},
+  icar:{name:"I-CAR",c:"--c-icar"}, ypa:{name:"YPA",c:"--c-ypa"}
+};
+const K={reg:{name:"Registration ask",c:"--k-ask",ask:1},spons:{name:"Sponsorship or exhibitor ask",c:"--k-ask",ask:1},content:{name:"Content or member news",c:"--k-content"},adv:{name:"Urgent advisory",c:"--k-adv"},log:{name:"Logistics (KBYG, survey)",c:"--k-log"}};
+const S={
+  "cn-reg":"Canada Night registration","cn-spons":"Canada Night sponsorship","ccif-reg":"CCIF Montréal registration","ccif-sup":"CCIF Montréal Supporters",
+  "qc-golf":"QC golf","bc-golf":"BC golf","ab-golf":"AB golf","mb-golf":"MB golf","saic-reg":"SAIC launch","saic-spons":"SAIC sponsorship",
+  "ccif-sc":"CCIF SC applications","caic-reg":"CAIC registration","caic-vend":"CAIC past CCIF vendors","bod":"BOD / DSA / YLA nominations",
+  "ccif-sup27":"2027 CCIF Supporter program","prospectus":"2027 Sponsorship Prospectus","ypa-ws":"YPA Workshop & reception"
+};
+const W=id=>"https://app-us2.wrike.com/open.htm?id="+id;
+// [date, title, program, status C/A/X, wrike id, owner, broad 1/0, kind, series, step]
+const RAW=[
+["2026-06-22","QC Golf Tournament · reg rmd #1","golf","C",4480136521,"",0,"reg","qc-golf",2],
+["2026-06-25","BC Golf Tournament · reg rmd #1","golf","C",4483799011,"",0,"reg","bc-golf",2],
+["2026-06-25","AB Golf Tournament · reg rmd #1 (AB members + past golfers)","golf","C",4480139728,"",0,"reg","ab-golf",2],
+["2026-06-26","MB Golf Tournament · reg rmd #1","golf","C",4483804060,"",0,"reg","mb-golf",2],
+["2026-06-30","CCIF Montréal · reg rmd #1","ccif","C",4482177371,"",0,"reg","ccif-reg",2],
+["2026-07-07","Canada Night · reg rmd #1","cn","C",4466796469,"",1,"reg","cn-reg",2],
+["2026-07-07","QC Golf Tournament · reg rmd #2","golf","C",4480136677,"",0,"reg","qc-golf",3],
+["2026-07-14","AB Golf Tournament · reg rmd #2","golf","C",4480140356,"",0,"reg","ab-golf",3],
+["2026-07-14","BC Golf Tournament · reg rmd #2","golf","C",4483799019,"",0,"reg","bc-golf",3],
+["2026-07-24","MB Golf Tournament · reg rmd #2","golf","C",4483804089,"",0,"reg","mb-golf",3],
+["2026-07-28","CCIF Montréal · reg rmd #2","ccif","C",4482177474,"",0,"reg","ccif-reg",3],
+["2026-07-29","Canada Night · reg rmd #2","cn","C",4466796738,"",1,"reg","cn-reg",3],
+["2026-07-29","BC Golf Tournament · rmd #3, reg closes in 1 week","golf","X",4483799036,"",0,"reg","bc-golf",4],
+["2026-08-05","QC Golf Tournament · rmd #3, 1 week until reg ends","golf","C",4483799212,"",0,"reg","qc-golf",4],
+["2026-08-05","CCIF Montréal · Supporters reg rmd #1","ccif","C",4513167087,"",0,"spons","ccif-sup",2],
+["2026-08-07","BC Golf Tournament · KBYG (registered)","golf","C",4483799066,"",0,"log"],
+["2026-08-11","BC Golf Tournament · post-event survey","golf","C",4483801824,"",0,"log"],
+["2026-08-13","MB Golf Tournament · reg rmd #3","golf","C",4483804109,"",0,"reg","mb-golf",4],
+["2026-08-14","AB Golf Tournament · reg rmd #3","golf","C",4480140441,"",0,"reg","ab-golf",4],
+["2026-08-18","QC Golf Tournament · KBYG (registered)","golf","C",4480136766,"",0,"log"],
+["2026-08-19","Canada Night · reg rmd #3","cn","C",4483798719,"",1,"reg","cn-reg",4],
+["2026-08-19","CCIF Montréal · reg rmd #3","ccif","C",4482177487,"",0,"reg","ccif-reg",4],
+["2026-08-19","Tariff eBlast to members","mem","C",4535854776,"Sebastien Guindon",1,"adv"],
+["2026-08-20","I-CAR Platinum email","icar","C",4530024317,"",1,"content"],
+["2026-08-21","CCIF Montréal · Supporters reg rmd #2","ccif","A",4513167153,"",0,"spons","ccif-sup",3],
+["2026-08-26","MB Golf Tournament · KBYG (registered)","golf","C",4483804126,"",0,"log"],
+["2026-08-26","AB Golf Tournament · KBYG (registered)","golf","C",4480140670,"",0,"log"],
+["2026-08-28","QC Golf Tournament · post-event survey","golf","C",4480136990,"",0,"log"],
+["2026-09-02","Canada Night · single ticket launch","cn","C",4483798743,"",1,"reg","cn-reg",5],
+["2026-09-02","AB Golf Tournament · post-event survey","golf","C",4480140791,"",0,"log"],
+["2026-09-03","CCIF Montréal · reg rmd #4, closes in 1 week","ccif","C",4482177748,"",0,"reg","ccif-reg",5],
+["2026-09-03","SAIC #1 · launch","saic","C",4516115573,"",1,"reg","saic-reg",1],
+["2026-09-04","SAIC sponsorship · Maple Leaf & Gold sponsors","saic","C",4546919858,"",0,"spons","saic-spons",1],
+["2026-09-08","Aftermarket Service & Warranty Statement · all members","mem","C",4540438577,"",1,"content"],
+["2026-09-09","MB Golf Tournament · post-event survey","golf","C",4483804147,"",0,"log"],
+["2026-09-10","CEO Update · September","mem","C",4546237589,"Sebastien Guindon",1,"content"],
+["2026-09-10","ECC message · all members","mem","C",4549896507,"Sebastien Guindon",1,"content"],
+["2026-09-14","CCIF Montréal · KBYG (registered)","ccif","C",4480136036,"",0,"log"],
+["2026-09-14","Canada Night · sponsorship rmd #1","cn","C",4553075978,"",1,"spons","cn-spons",2],
+["2026-09-18","CCIF Montréal · post-event survey (actual attendees)","ccif","A",4480136391,"Brian Beehler",0,"log"],
+["2026-09-21","SAIC sponsorship · all members","saic","C",4547651984,"",1,"spons","saic-spons",2],
+["2026-09-22","Canada Night · one month left to register","cn","A",4483798754,"",1,"reg","cn-reg",6],
+["2026-09-24","CCIF SC · applications launch","ccif","A",4558139748,"",0,"reg","ccif-sc",1],
+["2026-09-28","Canada Night · sponsorship rmd #2","cn","C",4553728322,"",1,"spons","cn-spons",3],
+["2026-10-02","QC Division · member application promo","mem","A",4566997501,"",0,"content"],
+["2026-10-05","CAIC · registration launch","caic","A",4565679553,"",1,"reg","caic-reg",1],
+["2026-10-07","2027 Sponsorship Prospectus · general membership","mem","A",4577013860,"",1,"spons","prospectus",1],
+["2026-10-08","SAIC · sponsorship last call","saic","X",4578068760,"Emily Reed",1,"spons","saic-spons",3],
+["2026-10-27","Canada Night · 3 days left to register","cn","A",4483798782,"",1,"reg","cn-reg",7],
+["2026-10-28","BOD / DSA / YLA nominations launch","mem","A",4465340542,"",1,"content","bod",1],
+["2026-10-29","CAIC · registration rmd #1","caic","A",4565679625,"",1,"reg","caic-reg",2],
+["2026-10-30","Canada Night · KBYG #1 (registered)","cn","A",4483798917,"",0,"log"],
+["2026-11-02","Canada Night · KBYG #2 (registered)","cn","A",4483798850,"",0,"log"],
+["2026-11-10","CCIF SC · application rmd #3 (9:30 a.m.)","ccif","A",4558139836,"",0,"reg","ccif-sc",4],
+["2026-11-17","CAIC · past CCIF vendors reg #1","caic","A",4566073323,"",0,"spons","caic-vend",1],
+["2026-11-24","YPA Workshop & reception reg (general public)","ypa","A",4579882354,"",1,"reg","ypa-ws",1],
+["2026-12-03","CAIC · registration rmd #2","caic","A",4566072937,"",1,"reg","caic-reg",3],
+["2026-12-10","BOD / YL / DSA nominations close","mem","A",4579882385,"",1,"content","bod",2],
+["2027-01-14","CCIF Supporter launch · past Supporters","ccif","A",4579882315,"",0,"spons","ccif-sup27",1],
+["2027-01-20","CAIC · past CCIF vendors reg rmd #2","caic","A",4566073519,"",0,"spons","caic-vend",2],
+["2027-03-10","CAIC · registration rmd #3","caic","A",4566073008,"",1,"reg","caic-reg",4],
+["2027-03-26","CAIC · KBYG #1","caic","A",4566073655,"",0,"log"],
+["2027-03-29","CAIC · KBYG #2","caic","A",4566073658,"",0,"log"]
+];
+const EV=RAW.map(([d,t,p,s,id,o,b,k,se,st],i)=>({i,d,t,p,s,url:W(id),o,b:!!b,k,se,st}));
+
+/* ---------- dates ---------- */
+const pad=n=>String(n).padStart(2,"0");
+const iso=dt=>dt.getFullYear()+"-"+pad(dt.getMonth()+1)+"-"+pad(dt.getDate());
+const parse=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const addDays=(s,n)=>{const d=parse(s);d.setDate(d.getDate()+n);return iso(d)};
+const weekOf=s=>{const d=parse(s);d.setDate(d.getDate()-((d.getDay()+6)%7));return iso(d)};
+const monthOf=s=>s.slice(0,7);
+const TODAY=iso(new Date());
+const FROM=TODAY>RULES_FROM?TODAY:RULES_FROM;
+const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const fmtShort=s=>parse(s).toLocaleDateString("en-CA",{weekday:"short",month:"short",day:"numeric"});
+const fmtMD=s=>parse(s).toLocaleDateString("en-CA",{month:"short",day:"numeric"});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- rule engine ---------- */
+const live=EV.filter(e=>e.s!=="X");
+const broadLive=live.filter(e=>e.b);
+const byWeek={},byDay={},byMonth={},sponsByMonth={};
+broadLive.forEach(e=>{(byWeek[weekOf(e.d)]=byWeek[weekOf(e.d)]||[]).push(e);(byDay[e.d]=byDay[e.d]||[]).push(e);(byMonth[monthOf(e.d)]=byMonth[monthOf(e.d)]||[]).push(e)});
+live.filter(e=>e.k==="spons").forEach(e=>(sponsByMonth[monthOf(e.d)]=sponsByMonth[monthOf(e.d)]||[]).push(e));
+const sortD=(a,b)=>a.d.localeCompare(b.d)||a.i-b.i;
+
+function nextOpenWeek(after){
+  let w=addDays(weekOf(after),7);
+  for(let n=0;n<26;n++){const c=(byWeek[w]||[]).length;if(c<WEEK_CAP)return w;w=addDays(w,7)}
+  return null;
+}
+EV.forEach(e=>{e.issues=[];});
+// Weekly cap: 3rd+ broad send in a week, unless it is an urgent advisory taking the third slot
+Object.entries(byWeek).forEach(([w,es])=>{
+  es.sort(sortD);
+  if(es.length<=WEEK_CAP)return;
+  const advIdx=es.findIndex(x=>x.k==="adv");
+  es.forEach((e,idx)=>{
+    if(idx<WEEK_CAP)return;
+    if(e.k==="adv"&&idx===WEEK_CAP)return;
+    if(es.length===WEEK_CAP+1&&advIdx>-1&&advIdx<WEEK_CAP)return; // advisory already in week takes the third slot
+    const ow=nextOpenWeek(e.d);
+    e.issues.push({code:"cap",label:"Over weekly cap",sev:"bad",
+      why:`${es.length} broad sends the week of ${fmtMD(w)}: ${es.map(x=>x.t+" ("+fmtMD(x.d)+")").join(", ")}. The cap is ${WEEK_CAP}.`,
+      fix:ow?`Move it to the week of ${fmtMD(ow)}, which has ${(byWeek[ow]||[]).length} broad send${(byWeek[ow]||[]).length===1?"":"s"} booked.`:"Move it to a week with an open slot."});
+  });
+});
+// Same-day doubles
+Object.entries(byDay).forEach(([d,es])=>{
+  if(es.length<2)return;
+  es.sort(sortD).slice(1).forEach(e=>{
+    e.issues.push({code:"day",label:"Same-day double",sev:"bad",
+      why:`${es.length} broad sends on ${fmtMD(d)}: ${es.map(x=>x.t).join("; ")}.`,fix:"Move one to another day. Never two broad sends in a day."});
+  });
+});
+// Reminder playbook
+live.forEach(e=>{
+  if(!e.se||!(e.k==="reg"||e.k==="spons"))return;
+  if(e.st>SERIES_CAP){
+    e.issues.push({code:"steps",label:`Send #${e.st} in series`,sev:"bad",
+      why:`This is send #${e.st} in the ${S[e.se]} series. The playbook stops at ${SERIES_CAP}: launch, one reminder, last chance.`,
+      fix:"Cut it, fold it into the last chance, or get the director's sign-off."});
+  } else if(e.st===SERIES_CAP && e.k==="reg"){
+    e.issues.push({code:"last",label:"Last chance",sev:"info",
+      why:`Send #3 in the ${S[e.se]} series, so this is the last chance under the playbook.`,
+      fix:"Send it only to people who opened or clicked an earlier send and haven't registered."});
+  }
+});
+// Bundle sponsorship asks: more than one in a month
+Object.entries(sponsByMonth).forEach(([m,es])=>{
+  if(es.length<2)return;
+  es.sort(sortD);
+  const mm=MONTHS[+m.slice(5)-1];
+  es.slice(1).forEach(e=>e.issues.push({code:"bundle",label:"Bundle ask",sev:"bad",
+    why:`${es.length} sponsorship or exhibitor asks in ${mm}: ${es.map(x=>x.t+" ("+fmtMD(x.d)+")").join(", ")}.`,
+    fix:`Fold them into one Partner opportunities email for ${mm}. One deadline reminder per event may still go to engaged prospects.`}));
+});
+
+const isLate=e=>e.s==="A"&&e.d<TODAY;
+const isRed=e=>e.s!=="X"&&!(e.d<RULES_FROM)&&e.issues.some(x=>x.sev==="bad");
+const ahead=e=>e.d>=FROM&&e.s==="A";
+const hist=e=>e.d<RULES_FROM;
+
+/* ---------- state ---------- */
+let state={y:2026,m:9,view:"month",color:"kind",cancel:false,on:new Set(Object.keys(P))};
+try{const v=localStorage.getItem("eb-view");if(v)state.view=v;const c=localStorage.getItem("eb-color");if(c)state.color=c;}catch(e){}
+if(window.matchMedia("(max-width:720px)").matches)state.view="list";
+{const t=parse(TODAY);if(t>=parse("2026-06-01")&&t<=parse("2027-03-31")){state.y=t.getFullYear();state.m=t.getMonth();}}
+const visible=()=>EV.filter(e=>state.on.has(e.p)&&(state.cancel||e.s!=="X"));
+const colorOf=e=>state.color==="kind"?K[e.k].c:P[e.p].c;
+
+/* ---------- header stats ---------- */
+function stats(){
+  const in30=addDays(TODAY,30);
+  const up=live.filter(e=>e.d>=TODAY&&e.d<=in30).length;
+  const late=live.filter(isLate).length;
+  const mk=monthOf(TODAY), mb=(byMonth[mk]||[]).length;
+  document.getElementById("stats").innerHTML=
+    `<div class="stat ${mb>MONTH_CAP?"bad":""}"><b>${mb}<span style="font-size:12px;color:var(--muted)"> / ${MONTH_CAP}</span></b><span>broad sends this month</span></div>`+
+    `<div class="stat"><b>${up}</b><span>sends in next 30 days</span></div>`+
+    `<div class="stat warn"><b>${late}</b><span>past due, still open</span></div>`;
+}
+
+/* ---------- rule check panel ---------- */
+function rulePanel(){
+  const up=live.filter(ahead);
+  const cnt=code=>up.filter(e=>e.issues.some(x=>x.code===code)).length;
+  const weeksOver=new Set(up.filter(e=>e.issues.some(x=>x.code==="cap")).map(e=>weekOf(e.d))).size;
+  const monthsOver=Object.entries(byMonth).filter(([m,es])=>m>=monthOf(FROM)&&es.length>MONTH_CAP).length;
+  const card=(title,n,okTxt,badTxt,desc,sev="bad")=>`<div class="rule"><div class="rn"><b>${title}</b><span class="badge ${n?sev:"ok"}">${n?badTxt:okTxt}</span></div><p>${desc}</p></div>`;
+  document.getElementById("rules").innerHTML=
+    card("Weekly cap",weeksOver,"On track",`${weeksOver} week${weeksOver===1?"":"s"} over`,`No more than ${WEEK_CAP} broad sends a week. An urgent advisory may take a third.`)+
+    card("Never two in a day",cnt("day"),"On track",`${cnt("day")} double${cnt("day")===1?"":"s"}`,"One broad send per day to the main list.")+
+    card("Reminder playbook",cnt("steps"),"On track",`${cnt("steps")} send${cnt("steps")===1?"":"s"} past #3`,"Launch, one reminder, last chance. More needs director sign-off.")+
+    card("Partner email",cnt("bundle"),"On track",`${cnt("bundle")} ask${cnt("bundle")===1?"":"s"} to bundle`,"One sponsorship and exhibitor email a month.")+
+    card("Monthly load",monthsOver,"Under 9",`${monthsOver} month${monthsOver===1?"":"s"} over`,`About ${MONTH_CAP} broad emails per member a month, at most.`);
+  const flagged=up.filter(e=>e.issues.length).sort(sortD);
+  const nBad=up.filter(isRed).length;
+  document.getElementById("accCount").innerHTML=nBad?`<span class="badge bad">${nBad} rule break${nBad===1?"":"s"}</span>`:`<span class="badge ok">On track</span>`;
+  const el=document.getElementById("issues");
+  if(!flagged.length){el.innerHTML=`<div class="none">Every scheduled send from today on fits the rules.</div>`;}
+  else el.innerHTML=flagged.map(e=>{
+    const bad=e.issues.filter(x=>x.sev==="bad"), info=e.issues.filter(x=>x.sev!=="bad");
+    const all=[...bad,...info];
+    return `<div class="issue"><span class="dt">${fmtShort(e.d)}</span><div class="what">
+      <a href="${e.url}" target="_blank" rel="noopener">${esc(e.t)}</a>
+      <div class="tags">${all.map(x=>`<span class="badge ${x.sev==="bad"?"bad":"warn"}">${x.label}</span>`).join("")}<span class="badge" style="background:var(--soft);color:var(--muted)">${e.b?"Broad":"Targeted"} · ${K[e.k].name}</span></div>
+      ${all.map(x=>`<div class="fix">${esc(x.why)} <strong>${esc(x.fix)}</strong></div>`).join("")}
+    </div></div>`}).join("");
+  const past=live.filter(hist);
+  const hw=new Set(past.filter(e=>e.issues.some(x=>x.code==="cap")).map(e=>weekOf(e.d))).size;
+  const hs=past.filter(e=>e.issues.some(x=>x.code==="steps")).length;
+  const hb=past.filter(e=>e.issues.some(x=>x.code==="bundle")).length;
+  const hd=past.filter(e=>e.issues.some(x=>x.code==="day")).length;
+  document.getElementById("history").textContent=`Before the rules (June to September, Wrike-tracked sends only): ${hw} week${hw===1?"":"s"} over the cap, ${hd} same-day double${hd===1?"":"s"}, ${hs} send${hs===1?"":"s"} past #3 in a series, and ${hb} sponsorship ask${hb===1?"":"s"} that would now go in the partner email. Those are marked in grey on the calendar.`;
+}
+
+/* ---------- filters & legend ---------- */
+function filters(){
+  const el=document.getElementById("filters");
+  el.innerHTML=Object.entries(P).map(([k,v])=>{
+    const n=EV.filter(e=>e.p===k&&e.s!=="X").length;
+    return `<button class="chip" data-k="${k}" aria-pressed="${state.on.has(k)}" style="--c:var(${v.c})"><i></i>${v.name}<span class="n">${n}</span></button>`}).join("");
+  el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{
+    const k=b.dataset.k;
+    if(state.on.size===Object.keys(P).length)state.on=new Set([k]);
+    else if(state.on.has(k)){state.on.delete(k);if(!state.on.size)state.on=new Set(Object.keys(P))}
+    else state.on.add(k);
+    filters();render();
+  });
+}
+function legend(){
+  const kinds=[["Ask (registration, sponsorship)","--k-ask"],["Content or member news","--k-content"],["Urgent advisory","--k-adv"],["Logistics","--k-log"]];
+  const items=state.color==="kind"?kinds.map(([n,c])=>`<span><i class="sw" style="--c:var(${c})"></i>${n}</span>`).join(""):"";
+  document.getElementById("legend").innerHTML=items+
+    `<span><i class="sw" style="--c:var(--muted)"></i>Broad (main list, 1,000+)</span><span><i class="sw tgt" style="--c:var(--muted)"></i>Targeted segment</span>`+
+    `<span><span class="flag">Rule</span>breaks a rule</span><span><span class="flag info">Last chance</span>send to engaged only</span><span><span class="flag hist">Rule</span>before Oct 1</span>`;
+}
+
+/* ---------- views ---------- */
+function flagsHtml(e){
+  return e.issues.map(x=>{
+    const cls=hist(e)?"hist":x.sev==="bad"?"":"info";
+    return `<span class="flag ${cls}">${x.label}</span>`}).join("");
+}
+function evTag(e){
+  const cls=["ev"];if(!e.b)cls.push("tgt");if(e.s==="C")cls.push("done");if(e.s==="X")cls.push("cancel");if(isLate(e))cls.push("late");if(isRed(e))cls.push("flagged");
+  const st=e.s==="C"?"Sent":e.s==="X"?"Cancelled":isLate(e)?"Past due, still open":"Scheduled";
+  const tip=[P[e.p].name,e.t,e.o,(e.b?"Broad":"Targeted")+" · "+K[e.k].name,e.se?`${S[e.se]} · send #${e.st}`:"",st,...e.issues.map(x=>x.label+": "+x.fix)].filter(Boolean).join("\n");
+  return `<a class="${cls.join(" ")}" href="${e.url}" target="_blank" rel="noopener" style="--c:var(${colorOf(e)})" title="${esc(tip)}">${e.s!=="X"?flagsHtml(e):""}<span class="tx">${esc(e.t)}</span></a>`;
+}
+function month(){
+  const first=new Date(state.y,state.m,1);
+  let ws=weekOf(iso(first));
+  const evs=visible();const by={};evs.forEach(e=>(by[e.d]=by[e.d]||[]).push(e));
+  let rows="";
+  for(let r=0;r<6;r++){
+    if(r>0&&parse(ws).getMonth()!==state.m&&parse(ws)>first)break;
+    let cells="";
+    for(let i=0;i<7;i++){
+      const k=addDays(ws,i),d=parse(k),list=(by[k]||[]).sort(sortD);
+      const c=["day"];if(d.getMonth()!==state.m)c.push("out");if(k===TODAY)c.push("today");if(i>=5)c.push("wknd");
+      if((byDay[k]||[]).length>1)c.push("double");
+      cells+=`<div class="${c.join(" ")}"><span class="dnum">${d.getDate()}</span>${list.map(evTag).join("")}</div>`;
+    }
+    const wb=(byWeek[ws]||[]),n=wb.length;
+    const over=wb.some(e=>e.issues.some(x=>x.code==="cap"));
+    cells+=`<div class="wtot ${over?"over":n===WEEK_CAP?"at":"under"}" title="${n} broad send${n===1?"":"s"} to the main list this week (cap ${WEEK_CAP})"><b>${n}</b><small>broad<br>of ${WEEK_CAP}</small></div>`;
+    rows+=`<div class="wkrow">${cells}</div>`;
+    ws=addDays(ws,7);
+  }
+  return `<div class="gridwrap"><div class="grid"><div class="dow">${["Mon","Tue","Wed","Thu","Fri","Sat","Sun","Week"].map(x=>`<div>${x}</div>`).join("")}</div>${rows}</div></div>`;
+}
+function list(){
+  const lo=iso(new Date(state.y,state.m,1)),hi=iso(new Date(state.y,state.m+1,0));
+  const evs=visible().filter(e=>e.d>=lo&&e.d<=hi).sort(sortD);
+  if(!evs.length)return `<div class="empty">No eBlasts scheduled in ${MONTHS[state.m]} ${state.y} for the selected programs.</div>`;
+  const wks={};evs.forEach(e=>(wks[weekOf(e.d)]=wks[weekOf(e.d)]||[]).push(e));
+  return `<div class="agenda">`+Object.entries(wks).map(([w,es])=>{
+    const n=(byWeek[w]||[]).length,over=(byWeek[w]||[]).some(e=>e.issues.some(x=>x.code==="cap"));
+    return `<section class="wk"><h3><span>Week of ${fmtMD(w)}</span><span class="cnt ${over?"over":""}">${n} of ${WEEK_CAP} broad send${n===1?"":"s"}</span></h3>`+
+    es.map(e=>{
+      const pill=e.s==="C"?'<span class="pill">Sent</span>':e.s==="X"?'<span class="pill">Cancelled</span>':isLate(e)?'<span class="pill late">Past due, still open</span>':'<span class="pill open">Scheduled</span>';
+      return `<a class="row ${e.s==="X"?"cancel":""} ${isRed(e)?"flagged":""}" href="${e.url}" target="_blank" rel="noopener" style="--c:var(${colorOf(e)})"><span class="dt">${fmtShort(e.d)}</span><span class="t">${e.s!=="X"?flagsHtml(e):""}<b>${esc(e.t)}</b><small><i></i>${P[e.p].name} · ${e.b?"Broad":"Targeted"} · ${K[e.k].name}${e.se?` · send #${e.st}`:""}${e.o?" · "+esc(e.o):""}</small></span>${pill}</a>`}).join("")+`</section>`}).join("")+`</div>`;
+}
+function render(){
+  document.getElementById("label").textContent=MONTHS[state.m]+" "+state.y;
+  document.getElementById("view").innerHTML=state.view==="month"?month():list();
+  document.getElementById("vMonth").setAttribute("aria-pressed",state.view==="month");
+  document.getElementById("vList").setAttribute("aria-pressed",state.view==="list");
+  document.getElementById("cKind").setAttribute("aria-pressed",state.color==="kind");
+  document.getElementById("cProg").setAttribute("aria-pressed",state.color==="prog");
+  const lo=iso(new Date(state.y,state.m,1)),hi=iso(new Date(state.y,state.m+1,0));
+  const nm=EV.filter(e=>e.d>=lo&&e.d<=hi&&state.on.has(e.p)&&isRed(e)).length;
+  const fb=document.getElementById("flagBtn");
+  fb.hidden=!nm;
+  fb.innerHTML=`<svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M1 12V1h8l-2 3 2 3H2" fill="currentColor" stroke="currentColor" stroke-width="1"/></svg>${nm} rule break${nm===1?"":"s"} this month`;
+  legend();
+}
+function shift(n){const d=new Date(state.y,state.m+n,1);state.y=d.getFullYear();state.m=d.getMonth();render()}
+document.getElementById("prev").onclick=()=>shift(-1);
+document.getElementById("next").onclick=()=>shift(1);
+document.getElementById("flagBtn").onclick=()=>{const a=document.getElementById("checkAcc");a.open=true;a.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})};
+document.getElementById("todayBtn").onclick=()=>{const d=parse(TODAY);state.y=d.getFullYear();state.m=d.getMonth();render()};
+document.getElementById("showCancel").onchange=e=>{state.cancel=e.target.checked;render()};
+const save=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+document.getElementById("vMonth").onclick=()=>{state.view="month";save("eb-view","month");render()};
+document.getElementById("vList").onclick=()=>{state.view="list";save("eb-view","list");render()};
+document.getElementById("cKind").onclick=()=>{state.color="kind";save("eb-color","kind");render()};
+document.getElementById("cProg").onclick=()=>{state.color="prog";save("eb-color","prog");render()};
+document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT")return;if(e.key==="ArrowLeft")shift(-1);if(e.key==="ArrowRight")shift(1)});
+stats();rulePanel();filters();render();
+</script>
+</body>
+</html>
