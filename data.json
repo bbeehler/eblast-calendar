@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-07T23:35:24.252Z",
- "hash": "794949dcf655c160",
+ "generated": "2026-10-08T12:37:06.318Z",
+ "hash": "62df6de9391ee412",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -663,7 +663,7 @@
    "auto": false
   },
   {
-   "d": "2026-10-07",
+   "d": "2026-10-08",
    "t": "2027 Sponsorship Prospectus · general membership",
    "p": "mem",
    "s": "A",
