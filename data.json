@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-08T12:37:06.318Z",
- "hash": "62df6de9391ee412",
+ "generated": "2026-10-13T14:11:08.191Z",
+ "hash": "b950975d254b6a6c",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -722,7 +722,7 @@
    "d": "2026-10-27",
    "t": "Canada Night · 3 days left to register",
    "p": "cn",
-   "s": "A",
+   "s": "X",
    "id": "4483798782",
    "url": "https://app-us2.wrike.com/open.htm?id=4483798782",
    "o": "",
