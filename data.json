@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-13T14:11:08.191Z",
- "hash": "b950975d254b6a6c",
+ "generated": "2026-10-15T17:22:34.450Z",
+ "hash": "e763eaade75c10ec",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -759,20 +759,6 @@
    "se": "cn-reg",
    "st": 8,
    "auto": true
-  },
-  {
-   "d": "2026-10-29",
-   "t": "CAIC · registration rmd #1",
-   "p": "caic",
-   "s": "X",
-   "id": "4565679625",
-   "url": "https://app-us2.wrike.com/open.htm?id=4565679625",
-   "o": "",
-   "b": true,
-   "k": "reg",
-   "se": "caic-reg",
-   "st": 2,
-   "auto": false
   },
   {
    "d": "2026-10-30",
