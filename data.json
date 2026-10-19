@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-16T15:26:59.366Z",
- "hash": "2af05979af34abdc",
+ "generated": "2026-10-19T14:17:19.339Z",
+ "hash": "8188bc553c535858",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -745,20 +745,6 @@
    "se": "bod",
    "st": 1,
    "auto": false
-  },
-  {
-   "d": "2026-10-29",
-   "t": "2026 Canada Night 24h left to reg",
-   "p": "cn",
-   "s": "C",
-   "id": "4483798787",
-   "url": "https://app-us2.wrike.com/open.htm?id=4483798787",
-   "o": "",
-   "b": true,
-   "k": "reg",
-   "se": "cn-reg",
-   "st": 8,
-   "auto": true
   },
   {
    "d": "2026-10-30",

@@ -1,8 +1,8 @@
 {
- "ran": "2026-10-15T12:42:31.263Z",
+ "ran": "2026-10-19T14:17:19.340Z",
  "queries": {
   "blast": 31,
-  "eblast": 329
+  "eblast": 328
  },
  "skipped": {
   "notSend": [
@@ -53,8 +53,8 @@
    "Design and Layout eBlast",
    "Proof read eBlast copy",
    "3.6 eBlast #3 Final Reminder",
-   "3.1 eBlast #1 Registration Open",
-   "Design and layout eBlast"
+   "Design and layout eBlast",
+   "3.1 eBlast #1 Registration Open"
   ],
   "noDate": [
    "E-blast: 2026 CCIF Montreal - hotel accomodations (registered attendees)"
@@ -303,9 +303,9 @@
    "parents": 1
   }
  ],
- "tasksTotal": 329,
- "folders": 339,
- "blastProjects": 262,
- "sends": 70,
- "fromProjects": 5
+ "tasksTotal": 328,
+ "folders": 337,
+ "blastProjects": 260,
+ "sends": 68,
+ "fromProjects": 4
 }
