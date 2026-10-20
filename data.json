@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-19T14:24:22.675Z",
- "hash": "feab82a13f625dc5",
+ "generated": "2026-10-20T13:00:29.074Z",
+ "hash": "9ec3919dda1e4376",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -610,7 +610,7 @@
    "d": "2026-09-24",
    "t": "CCIF SC · applications launch",
    "p": "ccif",
-   "s": "A",
+   "s": "C",
    "id": "4558139748",
    "url": "https://app-us2.wrike.com/open.htm?id=4558139748",
    "o": "",
@@ -753,20 +753,6 @@
    "s": "A",
    "id": "4483798917",
    "url": "https://app-us2.wrike.com/open.htm?id=4483798917",
-   "o": "",
-   "b": false,
-   "k": "log",
-   "se": null,
-   "st": null,
-   "auto": false
-  },
-  {
-   "d": "2026-11-02",
-   "t": "Canada Night · KBYG #2 (registered)",
-   "p": "cn",
-   "s": "A",
-   "id": "4483798850",
-   "url": "https://app-us2.wrike.com/open.htm?id=4483798850",
    "o": "",
    "b": false,
    "k": "log",
