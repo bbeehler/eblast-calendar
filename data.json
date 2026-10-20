@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-20T13:00:29.074Z",
- "hash": "9ec3919dda1e4376",
+ "generated": "2026-10-20T14:46:32.362Z",
+ "hash": "5153b52b975262b4",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -638,10 +638,10 @@
    "d": "2026-10-02",
    "t": "QC Division · member application promo",
    "p": "mem",
-   "s": "A",
+   "s": "C",
    "id": "4566997501",
    "url": "https://app-us2.wrike.com/open.htm?id=4566997501",
-   "o": "",
+   "o": "Emily Reed",
    "b": false,
    "k": "content",
    "se": null,
