@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-20T15:03:28.380Z",
- "hash": "e910b8f0b9236022",
+ "generated": "2026-10-20T21:30:56.821Z",
+ "hash": "c7a154c76d5a439d",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -845,7 +845,7 @@
    "auto": false
   },
   {
-   "d": "2026-12-10",
+   "d": "2026-12-08",
    "t": "BOD / YL / DSA nominations close",
    "p": "mem",
    "s": "A",
