@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-20T21:30:56.821Z",
- "hash": "c7a154c76d5a439d",
+ "generated": "2026-10-22T19:45:49.792Z",
+ "hash": "728f9d9020c3088e",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -803,7 +803,7 @@
    "auto": true
   },
   {
-   "d": "2026-11-24",
+   "d": "2026-11-18",
    "t": "YPA Workshop & reception reg (general public)",
    "p": "ypa",
    "s": "A",
