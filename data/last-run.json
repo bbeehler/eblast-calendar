@@ -1,8 +1,8 @@
 {
- "ran": "2026-10-20T15:03:28.381Z",
+ "ran": "2026-10-22T19:57:38.670Z",
  "queries": {
   "blast": 31,
-  "eblast": 327
+  "eblast": 328
  },
  "skipped": {
   "notSend": [
@@ -51,10 +51,11 @@
    "Write eBlast content in EN",
    "Design and Layout eBlast",
    "Proof read eBlast copy",
-   "3.6 eBlast #3 Final Reminder",
    "Design and layout eBlast",
    "3.1 eBlast #1 Registration Open",
-   "Design and layout eBlast"
+   "Design and layout eBlast",
+   "3.6 eBlast #3 Final Reminder",
+   "eBlast: CEO update"
   ],
   "noDate": [
    "E-blast: 2026 CCIF Montreal - hotel accomodations (registered attendees)"
@@ -125,12 +126,6 @@
   {
    "title": "E-blast: CBS Understanding Millennials and Gen Z (sponsors)",
    "due": "2026-10-19T17:00:00",
-   "status": "Active",
-   "parents": 1
-  },
-  {
-   "title": "E-blast: CBS Understanding Millennials and Gen Z (general audience)",
-   "due": "2026-11-16T17:00:00",
    "status": "Active",
    "parents": 1
   },
@@ -244,7 +239,13 @@
   },
   {
    "title": "Submit Content Operations Request for e-blast KBYG to confirmed attendees",
-   "due": "2026-10-06T17:00:00",
+   "due": "2026-10-30T17:00:00",
+   "status": "Active",
+   "parents": 1
+  },
+  {
+   "title": "E-blast: CBS Understanding Millennials and Gen Z (general audience)",
+   "due": "2026-11-24T17:00:00",
    "status": "Active",
    "parents": 1
   },
@@ -303,8 +304,8 @@
    "parents": 1
   }
  ],
- "tasksTotal": 327,
- "folders": 336,
+ "tasksTotal": 328,
+ "folders": 338,
  "blastProjects": 259,
  "sends": 67,
  "fromProjects": 4

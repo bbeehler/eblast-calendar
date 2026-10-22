@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-22T19:45:49.792Z",
- "hash": "728f9d9020c3088e",
+ "generated": "2026-10-22T19:57:38.669Z",
+ "hash": "57c1b304b8e30532",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -789,20 +789,6 @@
    "auto": false
   },
   {
-   "d": "2026-11-16",
-   "t": "CBS Understanding Millennials and Gen Z (general audience)",
-   "p": "mem",
-   "s": "A",
-   "id": "4465342521",
-   "url": "https://app-us2.wrike.com/open.htm?id=4465342521",
-   "o": "",
-   "b": true,
-   "k": "content",
-   "se": null,
-   "st": null,
-   "auto": true
-  },
-  {
    "d": "2026-11-18",
    "t": "YPA Workshop & reception reg (general public)",
    "p": "ypa",
@@ -815,6 +801,20 @@
    "se": "ypa-ws",
    "st": 1,
    "auto": false
+  },
+  {
+   "d": "2026-11-24",
+   "t": "CBS Understanding Millennials and Gen Z (general audience)",
+   "p": "mem",
+   "s": "A",
+   "id": "4465342521",
+   "url": "https://app-us2.wrike.com/open.htm?id=4465342521",
+   "o": "",
+   "b": true,
+   "k": "content",
+   "se": null,
+   "st": null,
+   "auto": true
   },
   {
    "d": "2026-11-26",
