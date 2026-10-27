@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-26T17:32:20.956Z",
- "hash": "5734e9b57aeae58e",
+ "generated": "2026-10-27T18:18:32.015Z",
+ "hash": "91cef28f1772d5fc",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -784,6 +784,20 @@
    "o": "",
    "b": true,
    "k": "reg",
+   "se": null,
+   "st": null,
+   "auto": true
+  },
+  {
+   "d": "2026-11-10",
+   "t": "Notice to consumers",
+   "p": "mem",
+   "s": "A",
+   "id": "4592301521",
+   "url": "https://app-us2.wrike.com/open.htm?id=4592301521",
+   "o": "",
+   "b": true,
+   "k": "content",
    "se": null,
    "st": null,
    "auto": true
