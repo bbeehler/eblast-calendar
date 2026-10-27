@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-27T18:18:32.015Z",
- "hash": "91cef28f1772d5fc",
+ "generated": "2026-10-27T22:29:23.937Z",
+ "hash": "253c81c8129b936a",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -722,7 +722,7 @@
    "d": "2026-10-26",
    "t": "Applications for Team Canada Red Seal",
    "p": "mem",
-   "s": "A",
+   "s": "C",
    "id": "4591125153",
    "url": "https://app-us2.wrike.com/open.htm?id=4591125153",
    "o": "",
