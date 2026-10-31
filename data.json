@@ -1,23 +1,9 @@
 {
- "generated": "2026-10-27T22:29:23.937Z",
- "hash": "253c81c8129b936a",
+ "generated": "2026-10-31T02:38:24.122Z",
+ "hash": "b13c3eb7ad74d73c",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
-  {
-   "d": "2026-06-22",
-   "t": "QC Golf Tournament · reg rmd #1",
-   "p": "golf",
-   "s": "C",
-   "id": "4480136521",
-   "url": "https://app-us2.wrike.com/open.htm?id=4480136521",
-   "o": "",
-   "b": false,
-   "k": "reg",
-   "se": "qc-golf",
-   "st": 2,
-   "auto": false
-  },
   {
    "d": "2026-06-25",
    "t": "AB Golf Tournament · reg rmd #1 (AB members + past golfers)",
