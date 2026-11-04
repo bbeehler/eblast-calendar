@@ -1,23 +1,9 @@
 {
- "generated": "2026-11-03T02:22:19.816Z",
- "hash": "f40606f3ca55914f",
+ "generated": "2026-11-04T02:43:30.969Z",
+ "hash": "658c4369ec4b99ba",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
-  {
-   "d": "2026-06-26",
-   "t": "MB Golf Tournament · reg rmd #1",
-   "p": "golf",
-   "s": "C",
-   "id": "4483804060",
-   "url": "https://app-us2.wrike.com/open.htm?id=4483804060",
-   "o": "",
-   "b": false,
-   "k": "reg",
-   "se": "mb-golf",
-   "st": 2,
-   "auto": false
-  },
   {
    "d": "2026-06-30",
    "t": "CCIF Montréal · reg rmd #1",
