@@ -1,23 +1,9 @@
 {
- "generated": "2026-11-04T02:43:30.969Z",
- "hash": "658c4369ec4b99ba",
+ "generated": "2026-11-08T01:06:29.551Z",
+ "hash": "196bd351f732feba",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
-  {
-   "d": "2026-06-30",
-   "t": "CCIF Montréal · reg rmd #1",
-   "p": "ccif",
-   "s": "C",
-   "id": "4482177371",
-   "url": "https://app-us2.wrike.com/open.htm?id=4482177371",
-   "o": "",
-   "b": false,
-   "k": "reg",
-   "se": "ccif-reg",
-   "st": 2,
-   "auto": false
-  },
   {
    "d": "2026-07-07",
    "t": "Canada Night · reg rmd #1",
