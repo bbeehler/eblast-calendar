@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-11T18:28:11.724Z",
- "hash": "174e1b4788e24e8a",
+ "generated": "2026-11-12T00:56:43.408Z",
+ "hash": "7f627bbc4797ce8e",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -635,20 +635,6 @@
    "auto": true
   },
   {
-   "d": "2026-10-22",
-   "t": "Private briefing CBS Understanding Millennials and Gen Z",
-   "p": "mem",
-   "s": "A",
-   "id": "4465342529",
-   "url": "https://app-us2.wrike.com/open.htm?id=4465342529",
-   "o": "",
-   "b": true,
-   "k": "reg",
-   "se": null,
-   "st": null,
-   "auto": true
-  },
-  {
    "d": "2026-10-26",
    "t": "Applications for Team Canada Red Seal",
    "p": "mem",
@@ -705,20 +691,6 @@
    "auto": false
   },
   {
-   "d": "2026-11-03",
-   "t": "Private briefing CBS Understanding Millennials and Gen Z - reminder",
-   "p": "mem",
-   "s": "A",
-   "id": "4465342532",
-   "url": "https://app-us2.wrike.com/open.htm?id=4465342532",
-   "o": "",
-   "b": true,
-   "k": "reg",
-   "se": null,
-   "st": null,
-   "auto": true
-  },
-  {
    "d": "2026-11-10",
    "t": "Notice to consumers",
    "p": "mem",
@@ -745,6 +717,34 @@
    "se": "ccif-sc",
    "st": 4,
    "auto": false
+  },
+  {
+   "d": "2026-11-11",
+   "t": "Private briefing CBS Understanding Millennials and Gen Z",
+   "p": "mem",
+   "s": "C",
+   "id": "4465342529",
+   "url": "https://app-us2.wrike.com/open.htm?id=4465342529",
+   "o": "",
+   "b": true,
+   "k": "reg",
+   "se": null,
+   "st": null,
+   "auto": true
+  },
+  {
+   "d": "2026-11-17",
+   "t": "Private briefing CBS Understanding Millennials and Gen Z - reminder",
+   "p": "mem",
+   "s": "A",
+   "id": "4465342532",
+   "url": "https://app-us2.wrike.com/open.htm?id=4465342532",
+   "o": "",
+   "b": true,
+   "k": "reg",
+   "se": null,
+   "st": null,
+   "auto": true
   },
   {
    "d": "2026-11-19",
