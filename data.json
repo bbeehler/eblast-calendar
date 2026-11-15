@@ -1,37 +1,9 @@
 {
- "generated": "2026-11-12T00:56:43.408Z",
- "hash": "7f627bbc4797ce8e",
+ "generated": "2026-11-15T01:03:06.554Z",
+ "hash": "a0ba2bb8bd087684",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
-  {
-   "d": "2026-07-07",
-   "t": "Canada Night · reg rmd #1",
-   "p": "cn",
-   "s": "C",
-   "id": "4466796469",
-   "url": "https://app-us2.wrike.com/open.htm?id=4466796469",
-   "o": "",
-   "b": true,
-   "k": "reg",
-   "se": "cn-reg",
-   "st": 2,
-   "auto": false
-  },
-  {
-   "d": "2026-07-07",
-   "t": "QC Golf Tournament · reg rmd #2",
-   "p": "golf",
-   "s": "C",
-   "id": "4480136677",
-   "url": "https://app-us2.wrike.com/open.htm?id=4480136677",
-   "o": "Brian Beehler",
-   "b": false,
-   "k": "reg",
-   "se": "qc-golf",
-   "st": 3,
-   "auto": false
-  },
   {
    "d": "2026-07-14",
    "t": "AB Golf Tournament · reg rmd #2",
