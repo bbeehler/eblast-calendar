@@ -1,37 +1,9 @@
 {
- "generated": "2026-11-18T23:29:41.595Z",
- "hash": "7a42307511d5e648",
+ "generated": "2026-11-22T01:35:35.687Z",
+ "hash": "60505b02708865c6",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
-  {
-   "d": "2026-07-14",
-   "t": "AB Golf Tournament · reg rmd #2",
-   "p": "golf",
-   "s": "C",
-   "id": "4480140356",
-   "url": "https://app-us2.wrike.com/open.htm?id=4480140356",
-   "o": "",
-   "b": false,
-   "k": "reg",
-   "se": "ab-golf",
-   "st": 3,
-   "auto": false
-  },
-  {
-   "d": "2026-07-14",
-   "t": "BC Golf Tournament · reg rmd #2",
-   "p": "golf",
-   "s": "C",
-   "id": "4483799019",
-   "url": "https://app-us2.wrike.com/open.htm?id=4483799019",
-   "o": "",
-   "b": false,
-   "k": "reg",
-   "se": "bc-golf",
-   "st": 3,
-   "auto": false
-  },
   {
    "d": "2026-07-24",
    "t": "MB Golf Tournament · reg rmd #2",
