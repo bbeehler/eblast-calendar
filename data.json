@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-25T20:07:38.983Z",
- "hash": "2eda7c38a074dd55",
+ "generated": "2026-11-25T20:10:10.369Z",
+ "hash": "9fcab79bbf487d9b",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -720,20 +720,6 @@
   },
   {
    "d": "2026-12-01",
-   "t": "CAIC · past CCIF vendors reg #1",
-   "p": "caic",
-   "s": "A",
-   "id": "4566073323",
-   "url": "https://app-us2.wrike.com/open.htm?id=4566073323",
-   "o": "",
-   "b": false,
-   "k": "spons",
-   "se": "caic-vend",
-   "st": 1,
-   "auto": false
-  },
-  {
-   "d": "2026-12-01",
    "t": "Giving Tuesday",
    "p": "mem",
    "s": "A",
@@ -745,6 +731,20 @@
    "se": null,
    "st": null,
    "auto": true
+  },
+  {
+   "d": "2026-12-02",
+   "t": "CAIC · past CCIF vendors reg #1",
+   "p": "caic",
+   "s": "A",
+   "id": "4566073323",
+   "url": "https://app-us2.wrike.com/open.htm?id=4566073323",
+   "o": "",
+   "b": false,
+   "k": "spons",
+   "se": "caic-vend",
+   "st": 1,
+   "auto": false
   },
   {
    "d": "2026-12-03",
@@ -761,7 +761,7 @@
    "auto": false
   },
   {
-   "d": "2026-12-17",
+   "d": "2026-12-21",
    "t": "BOD / YL / DSA nominations close",
    "p": "mem",
    "s": "A",
