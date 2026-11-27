@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-25T20:10:10.369Z",
- "hash": "9fcab79bbf487d9b",
+ "generated": "2026-11-27T22:58:59.019Z",
+ "hash": "a3307de14ba1dd15",
  "source": "wrike",
  "space": "MQAAAAENKDdT",
  "sends": [
@@ -761,6 +761,20 @@
    "auto": false
   },
   {
+   "d": "2026-12-10",
+   "t": "CCIF sponsorship program launch",
+   "p": "ccif",
+   "s": "A",
+   "id": "4614719794",
+   "url": "https://app-us2.wrike.com/open.htm?id=4614719794",
+   "o": "",
+   "b": false,
+   "k": "spons",
+   "se": "ccif-sup",
+   "st": 4,
+   "auto": true
+  },
+  {
    "d": "2026-12-21",
    "t": "BOD / YL / DSA nominations close",
    "p": "mem",
@@ -801,6 +815,20 @@
    "se": "caic-vend",
    "st": 2,
    "auto": false
+  },
+  {
+   "d": "2027-01-21",
+   "t": "CCIF sponsorship program reminder",
+   "p": "ccif",
+   "s": "A",
+   "id": "4614719812",
+   "url": "https://app-us2.wrike.com/open.htm?id=4614719812",
+   "o": "",
+   "b": false,
+   "k": "spons",
+   "se": "ccif-sup27",
+   "st": 2,
+   "auto": true
   },
   {
    "d": "2027-03-10",
